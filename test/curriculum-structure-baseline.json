@@ -1,0 +1,2092 @@
+{
+  "moduleCount": 42,
+  "lessonCount": 238,
+  "modules": [
+    {
+      "id": "statistical-thinking",
+      "slug": "statistical-thinking",
+      "title": "Statistical Thinking & Descriptive Analytics",
+      "lessons": [
+        {
+          "title": "Start with the question, unit and sample",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Match variable type to a useful display",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Compare center and spread with a worked example",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Use quantiles and robust summaries",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Transform levels into meaningful changes",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Communicate uncertainty and practical importance",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "probability",
+      "slug": "probability",
+      "title": "Probability, Sampling & Economic Data",
+      "lessons": [
+        {
+          "title": "Define events, outcomes and horizons",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Conditioning changes the reference group",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Update base rates with Bayes' rule",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Separate independence, correlation and causality",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "From expected value to portfolio variance",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Quantiles, VaR and tail uncertainty",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "distributions",
+      "slug": "distributions",
+      "title": "Distributions, Sampling & the Central Limit Theorem",
+      "lessons": [
+        {
+          "title": "Four distributions hiding in one finance question",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "The law of large numbers: stability, not certainty",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "What the central limit theorem actually says",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Standard error and an interval in percentage points",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Bootstrap the statistic, not the story",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "From a distribution to a responsible conclusion",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "estimation",
+      "slug": "estimation",
+      "title": "Estimation & Confidence Intervals",
+      "lessons": [
+        {
+          "title": "Name the target before calculating",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Measure sampling variability with standard error",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Bias, variance and mean squared error",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Build an interval from an estimate and its uncertainty",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Interpret 95% confidence without a probability mistake",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Read intervals for precision, importance and limits",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "p-values",
+      "slug": "p-values",
+      "title": "P-values, Hypothesis Tests & Better Empirical Practice",
+      "lessons": [
+        {
+          "title": "Start with a question, design and null model",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Compute and interpret a p-value",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Read intervals and effect size together",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Why 0.05 is not a cliff",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Power, errors and study design",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Multiplicity and the search process",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Association, prediction and causality",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Beyond statistical significance: transparent conclusions",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "regression",
+      "slug": "regression",
+      "title": "Regression for Economic Questions",
+      "lessons": [
+        {
+          "title": "Start with a question, units and a fitted line",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Calculate residuals and read what they leave behind",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Measure fit without mistaking R-squared for truth",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Separate mean-response uncertainty from prediction",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Validate predictions on data the model did not see",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Association, prediction and causality in a finance example",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Conditional averages are not automatically causal",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "causal",
+      "slug": "causal",
+      "title": "Causal Inference, Experiments & Confounding",
+      "lessons": [
+        {
+          "title": "Association is not the missing counterfactual",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Potential outcomes and treatment effects",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Randomized experiments and implementation",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "DAGs: confounders, mediators and colliders",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Difference-in-differences and thresholds",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Instrumental variables, uncertainty and transport",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "time-series",
+      "slug": "time-series",
+      "title": "Economic Time Series & Market Data",
+      "lessons": [
+        {
+          "title": "Respect order and transform the series",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Choose a time scale and avoid spurious patterns",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Look for dependence in direction and magnitude",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Measure realized volatility with explicit units",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Separate realized and implied measures",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Model time series with humility",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "returns-risk",
+      "slug": "returns-risk",
+      "title": "Measuring Returns & Risk: A Finance Application",
+      "lessons": [
+        {
+          "title": "Define a return before calculating it",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Compound wealth and annualize with care",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Volatility measures dispersion, not every risk",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Interpret Sharpe ratio in context",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Read drawdown and the path of wealth",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Audit benchmarks, backtests and claims",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "portfolio",
+      "slug": "portfolio",
+      "title": "Diversification & Portfolio Risk: A Finance Application",
+      "lessons": [
+        {
+          "title": "Expected return is weighted; risk is joint",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Work a covariance-aware variance example",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Diversification is conditional, not magical",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Beta describes systematic co-movement",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "CAPM connects beta to a benchmark return",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Report uncertainty and practical importance",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "bayesian",
+      "slug": "bayesian",
+      "title": "Bayesian Statistics & Monte Carlo",
+      "lessons": [
+        {
+          "title": "Prior, likelihood and posterior",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Credible intervals and decision uncertainty",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Predictive distributions: from rates to outcomes",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Monte Carlo: propagate uncertain inputs",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Simulation error, sensitivity and tail summaries",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Communicate Bayesian evidence responsibly",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "backtesting",
+      "slug": "backtesting",
+      "title": "Backtesting, Multiple Testing & Research Integrity",
+      "lessons": [
+        {
+          "title": "A backtest is a conditional experiment",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Searching creates winners by chance",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Use chronology and point-in-time information",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "P-values need the whole research record",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Validate, stress and account for multiplicity",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Make modest, reproducible claims",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "correlation",
+      "slug": "correlation",
+      "title": "Covariance, Correlation & Association",
+      "lessons": [
+        {
+          "title": "Start with paired observations",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Correlation standardizes covariance",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Plot first: correlation can miss shape",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Association is not independence or causation",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Covariance links directly to portfolio risk",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Calculate, label, and report honestly",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 4
+    },
+    {
+      "id": "exploratory-data-analysis",
+      "slug": "exploratory-data-analysis",
+      "title": "Exploratory Data Analysis: A Practical Workflow",
+      "lessons": [
+        {
+          "title": "Ask what one row represents",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Check the table before summarizing it",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Match a plot to the question",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Summaries and outliers are prompts to investigate",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Compare subgroups and protect against hidden composition",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Keep a reproducible trail from question to finding",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 4
+    },
+    {
+      "id": "kernel-density",
+      "slug": "kernel-density",
+      "title": "Kernel Density Estimation & Local Smoothing",
+      "lessons": [
+        {
+          "title": "From a histogram to a smooth density",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "What the kernel contributes",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Bandwidth is the main smoothing decision",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Read the curve as a density, not a probability",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Joint and conditional densities add a second variable",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Kernel regression estimates a local conditional mean",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Local polynomials and a careful workflow",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 4
+    },
+    {
+      "id": "statistical-tools",
+      "slug": "statistical-tools",
+      "title": "A Starter Toolkit for Statistical Analysis",
+      "lessons": [
+        {
+          "title": "Pick the tool for the job",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Make a small data dictionary",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Load and inspect with pandas",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Summarize with NumPy and pandas",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Plot and label with Matplotlib",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Keep the analysis reproducible",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 4
+    },
+    {
+      "id": "research-design",
+      "slug": "research-design",
+      "title": "From Research Question to Credible Estimate",
+      "lessons": [
+        {
+          "title": "Write down the question before the model",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Name the counterfactual",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Choose an identification strategy",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Pre-specify checks and communicate scope",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "The same design can identify different target effects",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "experimental-design",
+      "slug": "experimental-design",
+      "title": "Randomized Experiments & Policy Trials",
+      "lessons": [
+        {
+          "title": "Random assignment builds a comparison",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Estimate the effect of the offer first",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Non-compliance changes the estimand",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Audit what happened after assignment",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Use pre-treatment measures for precision, not post-assignment filters",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "iv-2sls",
+      "slug": "iv-2sls",
+      "title": "Instrumental Variables & Two-Stage Least Squares",
+      "lessons": [
+        {
+          "title": "Why ordinary regression may fail",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Three conditions shape the argument",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Read two-stage least squares",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Check strength and scope",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "The Wald ratio shows whose effect an instrument identifies",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Weak instruments make conventional intervals fragile",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "difference-in-differences",
+      "slug": "difference-in-differences",
+      "title": "Difference-in-Differences & Event Studies",
+      "lessons": [
+        {
+          "title": "Take a difference in each group",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "The key assumption concerns untreated trends",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Use event time with care",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Handle policy timing and composition",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Calculate the contrast before reading a regression table",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "regression-discontinuity",
+      "slug": "regression-discontinuity",
+      "title": "Regression Discontinuity Designs",
+      "lessons": [
+        {
+          "title": "A threshold can create a local comparison",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Sharp and fuzzy assignment differ",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Choose the local window responsibly",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Probe the threshold story",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "The bandwidth trades locality against precision",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "panel-fixed-effects",
+      "slug": "panel-fixed-effects",
+      "title": "Panel Data, Fixed Effects & First Differences",
+      "lessons": [
+        {
+          "title": "Follow the same units over time",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Entity fixed effects remove stable differences",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Time effects capture common shocks",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "First differences and design limits",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Fixed effects and lagged outcomes answer different questions",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "The within transformation shows what identifies a fixed-effects estimate",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Nearby units can share changing shocks",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "robust-clustered-inference",
+      "slug": "robust-clustered-inference",
+      "title": "Robust, Clustered & Design-Based Inference",
+      "lessons": [
+        {
+          "title": "Uncertainty follows the data-generating design",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Cluster where outcomes can move together",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Few clusters need extra care",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Use the design to guide inference",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Cluster where assignment and shocks are shared",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Sampling clusters and assignment clusters play different roles",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "matching-weighting",
+      "slug": "matching-weighting",
+      "title": "Matching, Weighting & Propensity Scores",
+      "lessons": [
+        {
+          "title": "Compare units with similar observed histories",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "The propensity score is a balancing summary",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Check overlap and balance",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "State the assumptions and target",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Weighting choices define which population the contrast describes",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "synthetic-control",
+      "slug": "synthetic-control",
+      "title": "Synthetic Control for Comparative Case Studies",
+      "lessons": [
+        {
+          "title": "Construct a comparison from donor units",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Pre-treatment fit is the first check",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Inspect donors and modelling choices",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Use placebos as a reference, not a magic test",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Compare placebo units only when their pre-policy fit is comparable",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "limited-outcomes",
+      "slug": "limited-outcomes",
+      "title": "Binary, Count & Limited Outcomes",
+      "lessons": [
+        {
+          "title": "Start with the outcome’s support",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Compare linear probability and nonlinear links",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Choose a count model and inspect its limits",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Censoring and selection need different stories",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Translate nonlinear coefficients onto the probability scale",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "selection-missing-data",
+      "slug": "selection-missing-data",
+      "title": "Selection, Attrition & Missing Data",
+      "lessons": [
+        {
+          "title": "Missing rows can change the question",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "State the missingness assumption",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Account for selective observation",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Show sensitivity and preserve denominators",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Conditioning on who is observed can change the estimand",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "heterogeneous-effects",
+      "slug": "heterogeneous-effects",
+      "title": "Heterogeneous Effects & Quantile Regression",
+      "lessons": [
+        {
+          "title": "An average can hide variation",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Read interaction terms carefully",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Quantile regression answers a distributional question",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Keep discovery and confirmation distinct",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Conditional quantiles are not individual treatment effects",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Test the difference between groups directly",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "functional-form-specification",
+      "slug": "functional-form-specification",
+      "title": "Functional Form, Interactions & Model Checks",
+      "lessons": [
+        {
+          "title": "Keep units attached to every coefficient",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Allow curvature when the question calls for it",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Interactions compare conditional slopes",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Check specification without chasing a preferred fit",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Trace omitted-variable bias through two relationships",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "applied-macro-time-series",
+      "slug": "applied-macro-time-series",
+      "title": "Applied Macro Time Series & Forecasting",
+      "lessons": [
+        {
+          "title": "Inspect time order and measurement first",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Separate trend from persistence",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Build forecasts using only past information",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Dynamic responses are model-dependent",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "An AR(1) forecast mean-reverts toward its long-run mean",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Serial dependence means monthly rows are not monthly experiments",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "multilevel-partial-pooling",
+      "slug": "multilevel-partial-pooling",
+      "title": "Multilevel Models & Partial Pooling",
+      "lessons": [
+        {
+          "title": "Why a group label can matter",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "The two extremes: pool everything or nothing",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Partial pooling tempers noisy group estimates",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Read a varying-intercept model",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Know what the design can support",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "complex-survey-sampling",
+      "slug": "complex-survey-sampling",
+      "title": "Survey Sampling & Complex Designs",
+      "lessons": [
+        {
+          "title": "Start with the population, frame and selection process",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Weights reflect unequal chances of selection",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Strata and clusters solve different field problems",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Let the sample design govern uncertainty",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Treat nonresponse as a separate stage",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "survival-duration-analysis",
+      "slug": "survival-duration-analysis",
+      "title": "Survival & Duration Analysis",
+      "lessons": [
+        {
+          "title": "Duration outcomes contain time and status",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Right-censoring is partial information, not a zero",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Read the survival curve and median",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Hazard is conditional on still being at risk",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Check whether the comparison remains credible over time",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "spatial-dependence-regional-econometrics",
+      "slug": "spatial-dependence-regional-econometrics",
+      "title": "Spatial Dependence & Regional Econometrics",
+      "lessons": [
+        {
+          "title": "A map is data with a geography",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Neighbourhoods become a weights matrix",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Moran’s I summarizes global similarity among neighbours",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Spatial lag and spatial error tell different stories",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Stress-test the geography and causal claim",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "bootstrap-inference",
+      "slug": "bootstrap-inference",
+      "title": "Bootstrap Inference & Resampling",
+      "lessons": [
+        {
+          "title": "Resample the data you have",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Read spread and intervals from the bootstrap distribution",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Match resampling to the data structure",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Choose a bootstrap model and inspect its output",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Connect bootstrap intervals to econometric inference",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Apply it to a regional wage comparison",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "statistical-power-planning",
+      "slug": "statistical-power-planning",
+      "title": "Statistical Power & Sample-Size Planning",
+      "lessons": [
+        {
+          "title": "Start with a decision-relevant causal target",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Choose a precision target or a power target",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Distinguish power from the minimum detectable effect",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Account for assignment, clustering and attrition",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Power cannot repair a weak design",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Plan a job-training evaluation",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "measurement-error-economics",
+      "slug": "measurement-error-economics",
+      "title": "Measurement Error in Economic Data",
+      "lessons": [
+        {
+          "title": "Name the concept and the recorded variable",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Classical predictor error can flatten a slope",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Outcome error and non-classical error differ",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Use data collection and validation to learn about error",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Interpret a commuting-time regression carefully",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "price-indices-real-values",
+      "slug": "price-indices-real-values",
+      "title": "Price Indices & Real Economic Values",
+      "lessons": [
+        {
+          "title": "An index summarizes a defined basket",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Understand the base and the weights",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Calculate inflation from changes in the index",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Convert nominal values into real values",
+          "practiceCount": 0,
+          "practiceQuestionCount": 0,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Compare pay with prices in an education example",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "regularization-cross-validation",
+      "slug": "regularization-cross-validation",
+      "title": "Regularization, Cross-Validation & Prediction",
+      "lessons": [
+        {
+          "title": "Why a perfect historical fit can fail next month",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "What Ridge and LASSO penalties change",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Choose the penalty with cross-validation",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Read validation curves without chasing noise",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Keep prediction separate from economic explanation",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "meta-analysis-evidence-synthesis",
+      "slug": "meta-analysis-evidence-synthesis",
+      "title": "Meta-Analysis & Evidence Synthesis for Economics",
+      "lessons": [
+        {
+          "title": "Start with a question and a study-selection rule",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Weight estimates by precision, not by significance",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Allow effects to vary across settings",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Explain heterogeneity without overfitting the review",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Check what the published evidence leaves out",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "causal-mediation-mechanisms",
+      "slug": "causal-mediation-mechanisms",
+      "title": "Causal Mediation & Mechanism Analysis",
+      "lessons": [
+        {
+          "title": "Ask what pathway a mechanism claim proposes",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Separate total, direct and indirect effects",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "See why treatment randomization is not enough",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Match estimation to the outcome and design",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Use sensitivity analysis and report the limits",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    },
+    {
+      "id": "partial-identification-bounds",
+      "slug": "partial-identification-bounds",
+      "title": "Partial Identification, Bounds & Sensitivity",
+      "lessons": [
+        {
+          "title": "Replace an implausibly exact answer with a set",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Derive worst-case bounds for missing binary outcomes",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Tighten bounds only with assumptions you can defend",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Keep identified sets and confidence intervals separate",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        },
+        {
+          "title": "Report what the range can and cannot rule out",
+          "practiceCount": 1,
+          "practiceQuestionCount": 1,
+          "lessonQuizCount": 0,
+          "lessonQuizOptionCount": 0
+        }
+      ],
+      "moduleQuizCount": 1,
+      "moduleQuizQuestionCount": 1,
+      "moduleQuizOptionCount": 3
+    }
+  ]
+}

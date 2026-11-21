@@ -1,0 +1,96 @@
+---
+import { getMenuWithCacheHint, getSiteSettingsWithCacheHint } from "emdash";
+import { EmDashHead, EmDashBodyStart, EmDashBodyEnd } from "emdash/ui";
+import { createPublicPageContext } from "emdash/page";
+import "../styles/site.css";
+
+interface Props {
+  title: string;
+  pageTitle?: string | null;
+  description?: string | null;
+  image?: string | null;
+  canonical?: string | null;
+  content?: { collection: string; id: string; slug?: string | null };
+}
+const { title, pageTitle, description, image, canonical, content } = Astro.props;
+let settings: any = { title: "Applied Statistics for Economics", tagline: "Visual lessons in applied statistics and econometrics." };
+let menuItems: any[] = [];
+let cacheHints: unknown[] = [];
+try {
+  const [settingsResult, menuResult] = await Promise.all([
+    getSiteSettingsWithCacheHint(),
+    getMenuWithCacheHint("primary"),
+  ]);
+  settings = settingsResult.data ?? settings;
+  menuItems = menuResult.data?.items ?? [];
+  cacheHints = [settingsResult.cacheHint, menuResult.cacheHint];
+} catch {
+  // The public learning experience also renders from its bundled curriculum before CMS setup.
+}
+if (Astro.cache?.enabled) for (const hint of cacheHints) Astro.cache.set(hint as any);
+const siteTitle = "Applied Statistics for Economics";
+const siteTagline = "Visual lessons in applied statistics and econometrics.";
+const fullTitle = title === siteTitle || title.endsWith(` | ${siteTitle}`) ? title : `${title} — ${siteTitle}`;
+const pageDescription = description ?? siteTagline;
+const pageCtx = createPublicPageContext({
+  Astro,
+  kind: content ? "content" : "custom",
+  pageType: "website",
+  title: fullTitle,
+  pageTitle: pageTitle ?? title,
+  description: pageDescription,
+  canonical,
+  image,
+  content,
+  siteName: siteTitle,
+});
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#111b2b" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <EmDashHead page={pageCtx} />
+  </head>
+  <body>
+    <EmDashBodyStart page={pageCtx} />
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="/" aria-label="Applied Statistics for Economics home">
+          <span class="brand-mark" aria-hidden="true">Σ</span>
+          <span class="brand-copy"><strong>{siteTitle}</strong><small>ECONOMETRICS, CAUSAL INFERENCE, DATA</small></span>
+        </a>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="/#path">Learning path</a>
+          <a href="/#modules">Modules</a>
+          <a href="/#about">About</a>
+          {menuItems.filter((item) => !["Home", "Learning path", "All modules", "About"].includes(item.label)).map((item) => (
+            <a href={item.url} target={item.target} rel={item.target === "_blank" ? "noopener noreferrer" : undefined}>{item.label}</a>
+          ))}
+        </nav>
+        <a class="header-cta" href="/#modules">Explore the curriculum <span aria-hidden="true">↗</span></a>
+      </div>
+    </header>
+    <main><slot /></main>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <a class="brand footer-brand" href="/">
+          <span class="brand-mark" aria-hidden="true">Σ</span>
+          <span class="brand-copy"><strong>Statistical Finance Lab</strong><small>OPEN THE MODEL. QUESTION THE RESULT.</small></span>
+        </a>
+        <p>Built for learning, not investment advice. Examples are simulated or historical and are not forecasts.</p>
+        <div class="footer-links">
+          <a href="mailto:statistics_learning@bot.cue.im?subject=Question%20about%20the%20Statistical%20Finance%20Lab&body=Hi%20Statistical%20Finance%20Lab%2C%0A%0AI%27m%20exploring%20the%20learning%20path.%20Could%20you%20suggest%20which%20module%20to%20start%20with%3F%0A%0AThanks!">Email a question</a>
+          <a href="https://www.amstat.org/asa/files/pdfs/p-valuestatement.pdf" target="_blank" rel="noreferrer">ASA p-value statement ↗</a>
+        </div>
+        <small class="copyright">© <span data-year></span> Applied Statistics for Economics</small>
+      </div>
+    </footer>
+    <script src="../scripts/global.ts"></script>
+    <EmDashBodyEnd page={pageCtx} />
+  </body>
+</html>

@@ -1,0 +1,161 @@
+---
+import { getEmDashCollection } from "emdash";
+import Base from "../layouts/Base.astro";
+import bundledModules from "../data/modules.json";
+
+const parseJson = (value: unknown, fallback: any) => {
+  if (Array.isArray(value)) return value;
+  if (typeof value !== "string" || !value) return fallback;
+  try { return JSON.parse(value); } catch { return fallback; }
+};
+const normalize = (entry: any) => {
+  const data = entry.data ?? {};
+  const bundled = (bundledModules as any[]).find((item) => item.slug === entry.id);
+  const moduleKey = data.module_key ?? bundled?.id ?? entry.id;
+  return {
+    id: moduleKey,
+    moduleKey,
+    slug: entry.id,
+    title: bundled?.title ?? data.title ?? "Untitled module",
+    category: bundled?.category ?? data.category ?? "Foundations",
+    level: data.level ?? "Beginner",
+    minutes: Number(data.minutes ?? 18),
+    lab: data.lab ?? "descriptive",
+    excerpt: bundled?.excerpt ?? data.excerpt ?? "A step-by-step, interactive statistics lesson.",
+    objectives: typeof data.objectives === "string" ? data.objectives.split("\n").filter(Boolean) : data.objectives ?? [],
+    lessons: parseJson(data.lessons, []),
+    caseStudy: data.case_study ?? data.caseStudy ?? "",
+    misconceptions: typeof data.misconceptions === "string" ? data.misconceptions.split("\n").filter(Boolean) : data.misconceptions ?? [],
+    quiz: parseJson(data.quiz, null),
+    sources: parseJson(data.sources, []),
+    video: data.video ?? "",
+    visual: data.visual ?? bundled?.visual ?? "",
+    diagram: data.diagram ?? bundled?.diagram ?? "",
+    cardImage: data.card_image ?? data.cardImage ?? bundled?.cardImage ?? data.visual ?? bundled?.visual ?? data.diagram ?? bundled?.diagram ?? ""
+  };
+};
+let modules: any[] = [];
+try {
+  const result = await getEmDashCollection("modules", { limit: 50, orderBy: { title: "asc" } });
+  if (!result.error && result.entries.length) {
+    const published = result.entries.map(normalize);
+    const publishedSlugs = new Set(published.map((item) => item.slug));
+    const additions = (bundledModules as any[])
+      .filter((item) => !publishedSlugs.has(item.slug))
+      .map((item) => ({ ...item, id: item.id, moduleKey: item.id }));
+    modules = [...published, ...additions];
+  }
+} catch {
+  // The bundled curriculum keeps public learning available if the CMS is unavailable.
+}
+if (!modules.length) modules = (bundledModules as any[]).map((module) => ({ ...module, id: module.id, moduleKey: module.id }));
+const categories = ["Foundations", "Data & Tools", "Modelling", "Applied Econometrics", "Inference & Research", "Economic Applications", "Multilevel Models", "Survey Methods", "Survival Analysis", "Spatial Econometrics"];
+const icons: Record<string, string> = { "statistical-thinking":"▤", probability:"◌", distributions:"∿", estimation:"±", "p-values":"α", regression:"↗", causal:"⌘", "time-series":"⌁", "returns-risk":"↯", portfolio:"◫", bayesian:"⊂", backtesting:"⟳", "kernel-density":"∿", correlation:"↗", "exploratory-data-analysis":"⌕", "statistical-tools":"⌘", "research-design":"⌕", "experimental-design":"◉", "iv-2sls":"↗", "difference-in-differences":"↔", "regression-discontinuity":"⌁", "panel-fixed-effects":"▦", "robust-clustered-inference":"±", "matching-weighting":"⇄", "synthetic-control":"▥", "limited-outcomes":"◌", "selection-missing-data":"⌕", "heterogeneous-effects":"∿", "functional-form-specification":"⌘", "applied-macro-time-series":"⌁", "multilevel-partial-pooling":"⊙", "complex-survey-sampling":"▥", "survival-duration-analysis":"⌛", "spatial-dependence-regional-econometrics":"▦" };
+Object.assign(icons, {"regularization-cross-validation":"λ", "meta-analysis-evidence-synthesis":"∑", "causal-mediation-mechanisms":"↗", "partial-identification-bounds":"↔"});
+const pathItems = [
+  { number:"01", title:"Build your foundations", copy:"Data, probability and sampling—the language beneath every model.", category:"Foundations" },
+  { number:"02", title:"Explore data & tools", copy:"Inspect samples, understand survey weights and build reproducible workflows.", category:"Data & Tools" },
+  { number:"03", title:"Model economic outcomes", copy:"Regression, partial pooling, functional form, Bayesian thinking and time series.", category:"Modelling" },
+  { number:"04", title:"Study outcomes across time and place", copy:"Explore duration, spatial dependence, experiments, IV, RD and panel designs.", category:"Applied Econometrics" },
+  { number:"05", title:"Judge the evidence", copy:"Estimation, inference, assumptions and the limits of a result.", category:"Inference & Research" },
+  { number:"06", title:"Apply statistics broadly", copy:"Policy, labour, health, macroeconomics and finance examples.", category:"Economic Applications" }
+];
+---
+<Base title="Applied Statistics for Economics" description="An open, visual learning site for applied statistics, econometrics and causal inference across economics.">
+  <section class="hero" aria-labelledby="hero-title">
+    <img class="hero-image" src="/images/hero-statistical-finance.png" alt="Abstract probability curves and financial data points over a dark grid" fetchpriority="high" />
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="dot" aria-hidden="true"></span> Applied statistics & econometrics · {modules.length} learning modules</span>
+        <h1 id="hero-title">Applied statistics for <em>economics.</em></h1>
+        <p>Learn how to describe data, estimate relationships and evaluate policy questions. Explore interactive models, question their assumptions and see where evidence supports—or does not support—a causal claim.</p>
+        <div class="hero-actions">
+          <a class="button-primary" href="#modules">Explore the modules <span aria-hidden="true">↓</span></a>
+          <a class="button-light" href="#path">See the learning path</a>
+        </div>
+        <div class="hero-meta">
+          <span><strong>{modules.length}</strong> curated modules</span>
+          <span><span class="dot" aria-hidden="true"></span> Interactive math & charts</span>
+          <span>Open learning · no account required</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="intro-title">
+    <div class="intro-grid">
+      <div class="intro-copy">
+        <span class="eyebrow">A better way to learn</span>
+        <h2 id="intro-title" style="margin-top:12px">Statistics is easier when you can see it change.</h2>
+        <p>Instead of memorizing formulas in isolation, explore how a result changes when the data, sample size or assumptions change. Lessons connect statistical methods to questions in labour, education, health, public policy, macroeconomics and finance, with clear explanations and source links.</p>
+        <div class="feature-row">
+          <div class="feature-pill"><span class="feature-icon" aria-hidden="true">↗</span><span><strong>See the idea</strong><small>Large, uncluttered graphs update as you explore.</small></span></div>
+          <div class="feature-pill"><span class="feature-icon" aria-hidden="true">∑</span><span><strong>Follow the math</strong><small>Every key quantity is explained in context.</small></span></div>
+          <div class="feature-pill"><span class="feature-icon" aria-hidden="true">?</span><span><strong>Ask as you go</strong><small>Get a contextual explanation about the lesson you are viewing.</small></span></div>
+        </div>
+      </div>
+      <img class="intro-image" src="/images/visual-foundations.png" alt="A conceptual distribution of data points with a median marker and a few distant observations" loading="lazy" />
+    </div>
+  </section>
+
+  <section class="path-band" id="path" aria-labelledby="path-title">
+    <div class="section">
+      <div class="section-head">
+        <div><span class="eyebrow">Your route through the ideas</span><h2 id="path-title" style="margin-top:10px">A step-by-step learning path</h2></div>
+        <p>Start with foundations or jump to a method you need. Modules show their difficulty, estimated time, learning goals and sources.</p>
+      </div>
+      <div class="path-grid">
+        {pathItems.map((item) => (
+          <a class="path-item" href={`/#modules`} data-path-category={item.category}>
+            <span class="path-number">STAGE {item.number}</span>
+            <h3>{item.title}</h3>
+            <p>{item.copy}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="modules" aria-labelledby="modules-title">
+    <div class="section-head">
+      <div><span class="eyebrow">The curriculum</span><h2 id="modules-title" style="margin-top:10px">Pick a concept. Start exploring.</h2></div>
+      <p>Search by method, topic or economic application. Each module includes guided lessons, an interactive lab, a knowledge check and links to textbooks or open references.</p>
+    </div>
+    <div class="progress-panel" aria-live="polite">
+      <div><h3>Your learning, at your pace.</h3><p>Progress is saved in this browser only—no account required.</p></div>
+      <div class="progress-count"><div class="progress-ring" data-progress-ring style="--progress:0%"><span data-progress-percent aria-hidden="true">0%</span></div><span data-progress-count data-progress-total={modules.length}>0 of {modules.length} modules completed</span></div>
+    </div>
+    <div class="catalog-controls">
+      <label class="search-wrap"><span class="sr-only">Search modules</span><input class="search-input" data-module-search type="search" placeholder="Search IV, survey weights, survival, partial pooling, Moran’s I…" autocomplete="off" /></label>
+      <div class="filter-row" aria-label="Filter by category">
+        <button class="filter-chip" type="button" data-filter-category="All modules" aria-pressed="true">All modules</button>
+        {categories.map((category) => <button class="filter-chip" type="button" data-filter-category={category} aria-pressed="false">{category}</button>)}
+      </div>
+    </div>
+    <div class="catalog-summary"><span>Choose a module to open the lesson</span><span data-result-count>{modules.length} modules</span></div>
+    <div class="module-grid" data-progress-total={modules.length}>
+      {modules.map((module, index) => {
+        const searchText = `${module.title} ${module.slug} ${module.lab} ${module.category} ${module.excerpt} ${module.level} ${(module.objectives || []).join(" ")} ${(module.lessons || []).map((lesson: any) => lesson.title).join(" ")}`;
+        const id = module.id?.replace(/^module-/, "") || module.slug;
+        return (
+          <a class="module-card" href={`/modules/${module.slug}`} data-module-card data-progress-card={id} data-category={module.category} data-search={searchText} data-default-badge={`${module.minutes} min`}>
+            <div class="module-card-top"><span class="module-ordinal">MODULE {String(index + 1).padStart(2,"0")}</span><span class="module-badge" data-progress-badge>{module.minutes} min</span></div>
+            {module.cardImage && <img class="module-card-visual" src={module.cardImage} alt="" loading="lazy" />}
+            <div class="module-icon" aria-hidden="true">{icons[id] || "∑"}</div>
+            <h3>{module.title}</h3>
+            <p>{module.excerpt}</p>
+            <div class="module-card-footer"><span>{module.category} · {module.level}</span><span class="module-arrow" aria-hidden="true">↗</span></div>
+          </a>
+        );
+      })}
+    </div>
+    <div class="no-results" data-no-results hidden>No matching modules yet. Try another search or category.</div>
+  </section>
+
+  <section class="about-band" id="about" aria-labelledby="about-title">
+    <div class="section about-grid">
+      <div><span class="eyebrow">Learn with context</span><h2 id="about-title" style="margin-top:10px">Good statistics asks better questions.</h2><p>This site is built around a few habits: distinguish description from explanation, show uncertainty alongside estimates, separate statistical evidence from practical importance, and treat causal claims as questions of research design and assumptions.</p><p>Examples cover economics broadly, including public policy, labour, education, health, macroeconomics and finance. They are educational and may be simulated or historical; they are not policy guarantees, forecasts or investment recommendations.</p><p class="small">Progress is stored in this browser only; there is no account. The optional Ask AI helper can make mistakes, so check the lesson and linked sources. It uses a shared daily request limit and stores request counts, not question text.</p></div>
+      <div><img class="intro-image" src="/images/visual-foundations.png" alt="Conceptual statistical distribution showing the shape and spread of observations" loading="lazy" /><div class="about-note" style="margin-top:14px">When a result looks persuasive, ask: <strong>What is the comparison? Which assumptions identify the effect? How uncertain and practically important is the estimate?</strong></div></div>
+    </div>
+  </section>
+</Base>

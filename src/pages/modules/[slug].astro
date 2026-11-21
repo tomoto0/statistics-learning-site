@@ -1,0 +1,279 @@
+---
+import { decodeSlug, getEmDashEntry } from "emdash";
+import Base from "../../layouts/Base.astro";
+import bundledModules from "../../data/modules.json";
+import lessonExpansions from "../../data/lesson-expansions.json";
+import lessonDeepenings from "../../data/lesson-deepenings.json";
+import lessonFurtherDeepenings from "../../data/lesson-further-deepenings.json";
+import { mergeLessonSupplements } from "../../utils/merge-lesson-supplements.mjs";
+
+const slug = decodeSlug(Astro.params.slug);
+if (!slug) return Astro.rewrite("/404");
+const parseJson = (value: unknown, fallback: any) => {
+  if (Array.isArray(value)) return value;
+  if (typeof value !== "string" || !value) return fallback;
+  try { return JSON.parse(value); } catch { return fallback; }
+};
+const asList = (value: any) => Array.isArray(value) ? value : typeof value === "string" ? value.split(/\r?\n/).filter(Boolean) : [];
+const mergeList = (primary: any, supplemental: any, key?: string) => {
+  const merged = asList(primary);
+  const identity = (item: any) => key ? String(item?.[key] ?? "").trim() : String(item ?? "").trim();
+  const seen = new Set(merged.map(identity).filter(Boolean));
+  for (const item of asList(supplemental)) {
+    const id = identity(item);
+    if (!id || !seen.has(id)) {
+      merged.push(item);
+      if (id) seen.add(id);
+    }
+  }
+  return merged;
+};
+let module: any = (bundledModules as any[]).find((item) => item.slug === slug);
+const bundledModule = module;
+let contentId = module ? (bundledModule?.id ?? slug) : "";
+try {
+  const result = await getEmDashEntry("modules", slug);
+  if (result.entry) {
+    const entry: any = result.entry;
+    const data = entry.data ?? {};
+    const bundled = (bundledModules as any[]).find((item) => item.slug === slug);
+    const moduleKey = data.module_key ?? bundled?.id ?? slug;
+    module = {
+      id: moduleKey,
+      moduleKey,
+      slug: entry.id ?? slug,
+      title: bundled?.title ?? data.title ?? "Untitled module",
+      category: bundled?.category ?? data.category ?? "Foundations",
+      level: data.level ?? "Beginner",
+      minutes: Number(data.minutes ?? 18),
+      lab: data.lab ?? "descriptive",
+      excerpt: bundled?.excerpt ?? data.excerpt ?? "A step-by-step, interactive statistics lesson.",
+      objectives: mergeList(data.objectives, bundled?.objectives ?? []),
+      lessons: mergeList(parseJson(data.lessons, []), bundled?.lessons ?? [], "title"),
+      caseStudy: data.case_study ?? data.caseStudy ?? "",
+      misconceptions: mergeList(data.misconceptions, bundled?.misconceptions ?? []),
+      quiz: parseJson(data.quiz, null),
+      sources: mergeList(parseJson(data.sources, []), bundled?.sources ?? [], "label"),
+      video: data.video || bundled?.video || "",
+      captions: data.captions || bundled?.captions || "",
+      visual: data.visual ?? bundled?.visual ?? "",
+      diagram: data.diagram ?? bundled?.diagram ?? "",
+      diagramAlt: data.diagram_alt ?? bundled?.diagramAlt ?? "",
+      diagramCaption: data.diagram_caption ?? bundled?.diagramCaption ?? ""
+    };
+    contentId = moduleKey;
+  }
+  if (result.cacheHint && Astro.cache?.enabled) Astro.cache.set(result.cacheHint);
+} catch {
+  // Use the bundled curriculum as a protected-preview fallback until the CMS is initialized.
+}
+if (!module) return Astro.rewrite("/404");
+module.lessons = mergeLessonSupplements(
+  module.lessons ?? [],
+  [slug, module.id],
+  lessonExpansions as Record<string, Record<string, string[]>>,
+  lessonDeepenings as Record<string, Record<string, string>>,
+  lessonFurtherDeepenings as Record<string, Record<string, string>>,
+);
+const iconByLab: Record<string, string> = { descriptive:"▤", probability:"◌", clt:"∿", confidence:"±", pvalue:"α", regression:"↗", causal:"⌘", volatility:"⌁", returns:"↯", portfolio:"◫", bayesian:"⊂", backtesting:"⟳", kde:"∿", correlation:"↗", eda:"⌕", toolkit:"⌘" };
+const labTitles: Record<string, string> = {
+  descriptive:"What changes when one extreme day appears?", probability:"Base rates change the story", clt:"From raw returns to sample means", confidence:"Watch uncertainty shrink with n", pvalue:"The p-value is not a verdict", regression:"Move the line; inspect the fit", causal:"A study design, not a p-value", volatility:"Find volatility clustering", returns:"Returns compound; risk has many views", portfolio:"Correlation is the diversification lever", bayesian:"Update a prior with evidence", backtesting:"How many strategies did you try?", kde:"Each observation contributes a kernel", correlation:"An outlier can move correlation", eda:"Inspect a sample before summarizing it", toolkit:"A reproducible first pass through a dataset"
+};
+const labDescriptions: Record<string, string> = {
+  descriptive:"Drag the shock-day control. Compare mean and median in percentage-point units, and see how one tail observation changes a summary.",
+  probability:"Change the base rate and signal quality. Notice how a good-sounding alert can still produce many false positives when the event is rare.",
+  clt:"Adjust sample size to see how the distribution of sample means differs from raw simulated daily returns, all measured in percentage points. The horizontal range includes every generated mean.",
+  confidence:"Change sample size and monthly return volatility. The plot uses percentage points; the displayed μ ± 1.96 SE limits are reference limits, not an interval estimated from one sample.",
+  pvalue:"Adjust a positive or negative standardized effect and sample size. The chart expands to include the statistic; shaded tails show the two-sided null-model p-value.",
+  regression:"Add noise and vary the sample size. Compare the fitted line, observations and residuals; a fit is not automatically causal.",
+  causal:"Adjust the visual emphasis of hypothesized common-cause arrows. This is a causal story diagram, not a measured confounder strength or proof that the arrows are true.",
+  volatility:"Move the rolling window. The bars show daily returns and the line shows rolling sample SD on a separately labeled right axis; both are simulated percentage points.",
+  returns:"Change two simple returns and compare compounding with addition of log returns; the log sum is reported as log-return points, not simple percent return.",
+  portfolio:"Change the correlation and portfolio weight. Covariance makes portfolio risk different from a weighted average of standalone volatilities.",
+  bayesian:"Move the prior strength and set successes and failures separately. The Beta posterior adds each outcome count to its matching prior parameter.",
+  backtesting:"Try more independent null tests. The chart shows the probability of at least one false positive; it is not a full backtest or strategy-selection simulator.",
+  kde:"Adjust bandwidth in percentage points and the number of simulated observations. The rug marks show the sample; curves show Gaussian kernels and their sum.",
+  correlation:"Move the final paired point by the displayed number of synthetic units. Compare Pearson correlation with the visible pattern; observations are simulated.",
+  eda:"Change omitted rows and one simulated daily yield change in percentage points. The histogram and interpolated quartile summaries update; omissions are not replaced by zero.",
+  toolkit:"Change the simulated file size and missing-value rate. Inspect how many observations remain and how the computed mean depends on the sample."
+};
+Object.assign(iconByLab, {design:"◎",experiment:"⚖",iv:"↗",did:"⇢",rdd:"⌁",panel:"▦",cluster:"◉",matching:"≈",synthetic:"∿",limited:"◔",missing:"↘",hetero:"±",specification:"⌕",macro:"⌁"});
+Object.assign(iconByLab, {pooling:"⊙",survey:"▥",survival:"⌛",spatial:"▦",bootstrap:"↻",powerplan:"β",measurement:"≈",priceindex:"▤"});
+Object.assign(labTitles, {design:"Separate the target effect from selection bias",experiment:"Random assignment and trial precision",iv:"Instrument strength and the Wald ratio",did:"Two groups, two periods: Compare changes",rdd:"Zoom in around the cutoff",panel:"Compare within-unit changes",cluster:"How clustering changes uncertainty",matching:"Inspect balance and overlap",synthetic:"Build a weighted comparison path",limited:"Probability models for limited outcomes",missing:"See who remains observed",hetero:"Compare subgroup effects",specification:"Check model form on simulated data",macro:"Extend a time series into a forecast"});
+Object.assign(labTitles, {pooling:"How much should a small group borrow?",survey:"A sample mix is not automatically the population mix",survival:"An event-free curve with incomplete follow-up",spatial:"How strongly do neighboring regions resemble one another?"});
+Object.assign(labTitles, {bootstrap:"Resample the sample; watch the statistic vary",powerplan:"Plan detection around a meaningful effect",measurement:"Compare a latent predictor with a noisy measure",priceindex:"Weight price changes and deflate a nominal value"});
+Object.assign(iconByLab, {regularization:"λ",metaanalysis:"∑",mediation:"↗",partialid:"↔"});
+Object.assign(labTitles, {regularization:"Tune shrinkage without peeking at the test set",metaanalysis:"Pool study estimates and inspect heterogeneity",mediation:"Trace direct and indirect causal paths",partialid:"Calculate a treatment-effect identified set"});
+Object.assign(labDescriptions, {regularization:"Adjust relative penalty strength, predictor correlation and training sample size. The curves are a stylized prediction-risk illustration, not results fitted to an economic dataset; the validation minimum changes as variance and shrinkage change.",metaanalysis:"Vary the number of synthetic studies, their typical standard errors and assumed between-study spread. Compare inverse-variance and random-effects summaries; the input spread is a teaching assumption, not an estimated heterogeneity parameter.",mediation:"Change the treatment-to-mediator path, mediator-to-outcome association, direct path and a hypothetical unmeasured mediator–outcome bias. The adjusted pathway is a sensitivity scenario in an additive linear model, not an empirical estimate.",partialid:"Change treatment and control response rates and observed pass shares. Worst-case bounds use only the binary-outcome range [0,1]; they are population-style teaching bounds and do not include sampling uncertainty."});
+Object.assign(labDescriptions, {
+  design:"Change a target effect and selection bias. The graph separates the causal target from a raw group gap; all three quantities use the same outcome units.",
+  experiment:"Change the equal-arm sample size, outcome spread and stated effect. See expected interval width under a simple randomized design; this is not an observed trial result.",
+  iv:"Change first-stage strength and a possible direct instrument-to-outcome path. See how those assumptions affect the Wald ratio, with units named explicitly.",
+  did:"Only two periods are plotted. Solid points are observed means; the open dashed endpoint is the treated group’s unobserved post-period outcome without treatment. Compare each group’s change, then subtract. The default means are 50→56 for treated and 48→51 for comparison, so DiD = 3 outcome units. The trend-departure control shows why the contrast equals the stated effect only under parallel trends.",
+  rdd:"Change the cutoff jump and local bandwidth. The synthetic observations highlight why the discontinuity estimate is local to the threshold.",
+  panel:"Change the treatment effect and common period shock. The plot shows group means in three periods (periods 1–2 are pre-treatment; period 3 is post-treatment) and their difference-in-changes; it is not a full individual-level fixed-effects regression.",
+  cluster:"Change the number of assignment clusters and within-cluster correlation. The design-effect calculation is an equal-size teaching approximation.",
+  matching:"Change measured-covariate balance and an explicitly assumed common-support overlap setting. The gauge is illustrative, not an observed propensity-score diagnostic.",
+  synthetic:"Change pre-policy mismatch and the post-policy gap. The simulated paths show why good pre-fit is useful but not proof of the counterfactual.",
+  limited:"Change a baseline probability and the slopes of linear-probability and logit curves. Compare predicted probabilities, not unlike coefficient scales.",
+  missing:"Change group attrition and a hypothetical treatment-group outcome shift. The adjusted gap is an explicitly assumed sensitivity scenario, not observed data.",
+  hetero:"Change the average effect, subgroup spread and sample size. Intervals are illustrative; compare groups directly rather than judging overlap by eye.",
+  specification:"Change curvature and noise in a simulated sample. Linear and quadratic fits plus their actual in-sample errors update together.",
+  macro:"Change persistence and forecast horizon. The synthetic AR(1) projection and uncertainty band are for learning, not a real economic forecast."
+});
+Object.assign(labDescriptions, {pooling:"Adjust group size and the within- and between-group spread. Compare noisy local estimates with their partial-pooling counterparts; this is a known-variance teaching illustration, not a fitted model.",survey:"Change the target and sample shares of two groups, then adjust cluster size and within-cluster correlation. The weighted mean assumes known population shares and accurate group means; the design-effect formula is an equal-size approximation.",survival:"Change a constant baseline event hazard, a relative hazard and the follow-up horizon. Censoring changes how much follow-up is observed, not whether a censored spell is an event; the smooth curves are model illustrations, not estimates from data.",spatial:"Change spatial dependence, diagonal-neighbor weight and a local shock. A fixed-baseline spatial autoregressive iteration generates the synthetic grid; the field and standardized Moran scatter rescale to show every point. The lab reports observed Moran’s I only; randomization-reference inference is covered in the lesson, and no permutation p-value is calculated here."});
+Object.assign(labDescriptions, {bootstrap:"Change a synthetic sample size and repetitions. The one-sample median bootstrap now shows both percentile limits and the sample SD of bootstrap medians; it is not a regional wage-gap difference analysis.",powerplan:"Change the meaningful effect, outcome SD and equal-arm sample size. The curve uses a simple normal approximation with two-sided α = 5%; clustered or attriting studies need a richer design calculation.",measurement:"Add classical independent noise to a synthetic regressor. Compare the fitted slope on latent X with the slope on observed X*; the attenuation illustration relies on specific assumptions.",priceindex:"Change two category price relatives and the basket share for category A. The fixed-basket index and real-wage ratio are synthetic teaching calculations, not official CPI series."});
+const controlSets: Record<string, any[]> = {
+  descriptive:[{key:"shock",label:"Extreme daily change",min:-12,max:18,step:1,value:8,suffix:" pp"}],
+  probability:[{key:"baseRate",label:"Event base rate",min:1,max:30,step:1,value:5,suffix:"%"},{key:"sensitivity",label:"Signal sensitivity",min:50,max:100,step:1,value:85,suffix:"%"},{key:"falsePositive",label:"False-positive rate",min:1,max:25,step:1,value:10,suffix:"%"}],
+  clt:[{key:"sampleSize",label:"Observations per sample",min:5,max:100,step:1,value:30,suffix:""},{key:"repetitions",label:"Repeated samples",min:40,max:300,step:10,value:120,suffix:""}],
+  confidence:[{key:"sampleSize",label:"Sample size (n)",min:10,max:200,step:5,value:64,suffix:""},{key:"sigma",label:"Monthly volatility",min:1,max:10,step:.5,value:4,suffix:" pp/month"}],
+  pvalue:[{key:"effect",label:"Standardized mean effect (SD units)",min:-.6,max:.6,step:.01,value:.2,suffix:" SD"},{key:"sampleSize",label:"Sample size (n)",min:10,max:500,step:10,value:100,suffix:""}],
+  regression:[{key:"noise",label:"Noise level",min:2,max:20,step:1,value:8,suffix:""},{key:"sampleSize",label:"Observations",min:8,max:60,step:2,value:24,suffix:""}],
+  causal:[{key:"confounding",label:"Illustrative arrow emphasis",min:0,max:100,step:1,value:65,suffix:"%"}],
+  volatility:[{key:"window",label:"Rolling window",min:5,max:60,step:1,value:20,suffix:" days"}],
+  returns:[{key:"returnA",label:"First-period return",min:-30,max:40,step:1,value:10,suffix:"%"},{key:"returnB",label:"Second-period return",min:-30,max:40,step:1,value:-10,suffix:"%"}],
+  portfolio:[{key:"correlation",label:"Asset correlation",min:-1,max:1,step:.05,value:.2,suffix:""},{key:"weight",label:"Weight in Asset A",min:0,max:100,step:1,value:60,suffix:"%"}],
+  bayesian:[{key:"prior",label:"Prior mean",min:5,max:95,step:1,value:50,suffix:"%"},{key:"priorStrength",label:"Prior strength",min:2,max:40,step:1,value:10,suffix:""},{key:"successes",label:"Observed successes",min:0,max:20,step:1,value:7,suffix:""},{key:"failures",label:"Observed failures",min:0,max:20,step:1,value:13,suffix:""}],
+  backtesting:[{key:"trials",label:"Null strategies tried",min:1,max:100,step:1,value:20,suffix:""}],
+  kde:[{key:"bandwidth",label:"Bandwidth h",min:.2,max:1.8,step:.05,value:.7,suffix:" pp"},{key:"sampleSize",label:"Observations shown",min:6,max:20,step:1,value:14,suffix:""}],
+  correlation:[{key:"scatter",label:"Scatter around the trend",min:0,max:3,step:.1,value:.8,suffix:""},{key:"outlier",label:"Move the last point vertically",min:-20,max:20,step:1,value:0,suffix:" units"}],
+  eda:[{key:"missingRows",label:"Rows left missing",min:0,max:12,step:1,value:3,suffix:""},{key:"shock",label:"One shock observation",min:0,max:18,step:1,value:10,suffix:" pp"}],
+  toolkit:[{key:"rows",label:"Rows in the file",min:20,max:100,step:5,value:50,suffix:""},{key:"missingRate",label:"Missing-value rate",min:0,max:30,step:1,value:10,suffix:"%"}],
+  design:[{key:"trueEffect",label:"Target effect (outcome units)",min:-1,max:4,step:.1,value:1.5,suffix:""},{key:"selectionBias",label:"Selection bias (same units)",min:-3,max:3,step:.1,value:1,suffix:""}],
+  experiment:[{key:"n",label:"Participants per arm",min:10,max:250,step:10,value:80,suffix:""},{key:"sigma",label:"Outcome SD",min:1,max:8,step:.2,value:4,suffix:""},{key:"effect",label:"Stated effect (outcome units)",min:-1,max:4,step:.1,value:1,suffix:""}],
+  iv:[{key:"firstStage",label:"First-stage effect (D per Z)",min:.1,max:1,step:.05,value:.6,suffix:""},{key:"directEffect",label:"Direct Z→Y path (Y per Z)",min:-.8,max:.8,step:.05,value:0,suffix:""},{key:"trueEffect",label:"Treatment effect (Y per D)",min:-.5,max:3,step:.1,value:1.2,suffix:""}],
+  did:[{key:"effect",label:"Treatment effect (outcome units)",min:-1,max:4,step:.1,value:3,suffix:""},{key:"trendGap",label:"Parallel-trend departure",min:-2,max:2,step:.1,value:0,suffix:""}],
+  rdd:[{key:"jump",label:"Cutoff jump (outcome units)",min:-1,max:4,step:.1,value:1.5,suffix:""},{key:"bandwidth",label:"Local window (score units)",min:.2,max:1.2,step:.05,value:.7,suffix:""}],
+  panel:[{key:"effect",label:"Treatment effect (outcome units)",min:-2,max:4,step:.1,value:1.5,suffix:""},{key:"commonShock",label:"Shared time shock (same units)",min:-2,max:2,step:.1,value:1,suffix:""}],
+  cluster:[{key:"clusters",label:"Assignment clusters",min:4,max:32,step:1,value:12,suffix:""},{key:"icc",label:"Within-cluster correlation",min:0,max:.8,step:.02,value:.2,suffix:""}],
+  matching:[{key:"imbalance",label:"Largest initial |SMD|",min:.2,max:1.5,step:.05,value:1,suffix:""},{key:"residual",label:"Remaining imbalance share",min:.05,max:1,step:.05,value:.25,suffix:""},{key:"overlap",label:"Assumed common-support overlap",min:20,max:100,step:1,value:80,suffix:"%"}],
+  synthetic:[{key:"preFit",label:"Pre-policy mismatch",min:0,max:1.5,step:.05,value:.5,suffix:""},{key:"effect",label:"Post-policy gap (outcome units)",min:-2,max:4,step:.1,value:1.5,suffix:""}],
+  limited:[{key:"baseline",label:"Baseline probability",min:10,max:90,step:1,value:40,suffix:"%"},{key:"lpmSlope",label:"LPM probability-scale slope",min:-.3,max:.3,step:.01,value:.12,suffix:""},{key:"logitSlope",label:"Logit index slope",min:-.2,max:1.6,step:.05,value:.8,suffix:""}],
+  missing:[{key:"offerAttrition",label:"Offer-group attrition",min:0,max:40,step:1,value:18,suffix:"%"},{key:"controlAttrition",label:"Comparison attrition",min:0,max:40,step:1,value:12,suffix:"%"},{key:"unseenShift",label:"Treatment missing-outcome shift vs comparison",min:-3,max:3,step:.1,value:0,suffix:" units"}],
+  hetero:[{key:"averageEffect",label:"Average effect (outcome units)",min:-1,max:3,step:.1,value:1,suffix:""},{key:"heterogeneity",label:"Subgroup spread (same units)",min:0,max:1.5,step:.05,value:.7,suffix:""},{key:"n",label:"Total sample size",min:30,max:300,step:10,value:100,suffix:""}],
+  specification:[{key:"curvature",label:"True curvature in simulation",min:-1.5,max:1.5,step:.1,value:.7,suffix:""},{key:"noise",label:"Outcome noise",min:.1,max:1.5,step:.05,value:.5,suffix:""}],
+  macro:[{key:"persistence",label:"Persistence φ",min:.1,max:.95,step:.01,value:.65,suffix:""},{key:"horizon",label:"Forecast horizon",min:1,max:12,step:1,value:6,suffix:" periods"}],
+  pooling:[{key:"sampleSize",label:"Observations per group",min:4,max:120,step:2,value:24,suffix:""},{key:"withinSd",label:"Within-group SD σ",min:.5,max:5,step:.1,value:2,suffix:""},{key:"betweenSd",label:"Between-group SD τ",min:0,max:4,step:.1,value:1.5,suffix:""}],
+  survey:[{key:"popShare",label:"Group A share of population",min:20,max:80,step:1,value:45,suffix:"%"},{key:"sampleShare",label:"Group A share of sample",min:10,max:90,step:1,value:70,suffix:"%"},{key:"clusterSize",label:"Average cluster size m",min:5,max:40,step:1,value:20,suffix:""},{key:"icc",label:"Within-cluster correlation ρ",min:0,max:.5,step:.01,value:.2,suffix:""}],
+  survival:[{key:"hazard",label:"Baseline monthly event hazard",min:.01,max:.12,step:.005,value:.05,suffix:""},{key:"hazardRatio",label:"Comparison hazard ratio",min:.4,max:2,step:.05,value:.75,suffix:""},{key:"horizon",label:"Follow-up horizon",min:6,max:36,step:1,value:18,suffix:" months"},{key:"censoring",label:"Censored before horizon",min:0,max:60,step:5,value:20,suffix:"%"}],
+  spatial:[{key:"rho",label:"Spatial dependence ρ",min:0,max:.9,step:.05,value:.45,suffix:""},{key:"diagonalWeight",label:"Diagonal-neighbor weight",min:0,max:1,step:.1,value:.3,suffix:""},{key:"regionalShock",label:"Local shock strength",min:0,max:4,step:.2,value:2,suffix:""}],
+  bootstrap:[{key:"sampleSize",label:"Observed sample size n",min:20,max:100,step:10,value:50,suffix:""},{key:"repetitions",label:"Bootstrap repetitions B",min:100,max:600,step:100,value:300,suffix:""}],
+  powerplan:[{key:"effect",label:"Meaningful effect δ (units)",min:.2,max:2,step:.1,value:.8,suffix:""},{key:"sigma",label:"Outcome SD σ",min:1,max:8,step:.2,value:4,suffix:""},{key:"n",label:"Participants per arm",min:10,max:300,step:10,value:80,suffix:""}],
+  measurement:[{key:"errorSd",label:"Measurement-error SD",min:0,max:2,step:.1,value:.8,suffix:" standardized units"},{key:"outcomeNoise",label:"Outcome-noise SD",min:.2,max:2,step:.1,value:.8,suffix:" outcome units"}],
+  priceindex:[{key:"priceA",label:"Category A price relative",min:.8,max:1.3,step:.01,value:1.08,suffix:""},{key:"priceB",label:"Category B price relative",min:.8,max:1.3,step:.01,value:1.06,suffix:""},{key:"weightA",label:"Category A basket weight",min:20,max:80,step:1,value:55,suffix:"%"}],
+  regularization:[{key:"penalty",label:"Relative penalty strength λ",min:0,max:1.4,step:.05,value:.55,suffix:""},{key:"correlation",label:"Predictor correlation",min:0,max:.95,step:.05,value:.7,suffix:""},{key:"sampleSize",label:"Training observations n",min:30,max:240,step:10,value:100,suffix:""}],
+  metaanalysis:[{key:"studies",label:"Independent studies k",min:4,max:16,step:1,value:9,suffix:""},{key:"heterogeneity",label:"Assumed between-study SD τ",min:0,max:1.2,step:.05,value:.45,suffix:""},{key:"se",label:"Typical study standard error",min:.1,max:.75,step:.05,value:.3,suffix:""}],
+  mediation:[{key:"a",label:"Treatment → mediator path a",min:-.5,max:1.5,step:.1,value:.7,suffix:""},{key:"b",label:"Observed mediator → outcome path b",min:-1,max:2,step:.1,value:.8,suffix:""},{key:"direct",label:"Direct path c′",min:-1,max:2,step:.1,value:.4,suffix:""},{key:"bias",label:"Hypothetical hidden M–Y bias u",min:-1,max:1,step:.1,value:.2,suffix:""}],
+  partialid:[{key:"responseT",label:"Treatment follow-up observed",min:45,max:100,step:1,value:88,suffix:"%"},{key:"successT",label:"Pass share among observed · treatment",min:0,max:100,step:1,value:74,suffix:"%"},{key:"responseC",label:"Control follow-up observed",min:45,max:100,step:1,value:78,suffix:"%"},{key:"successC",label:"Pass share among observed · control",min:0,max:100,step:1,value:59,suffix:"%"}]
+};
+const controls = controlSets[module.lab] ?? controlSets.descriptive;
+const labTitle = labTitles[module.lab] ?? "Explore the interactive model";
+const labDescription = labDescriptions[module.lab] ?? "Change the controls and notice which quantities move.";
+const exampleConcept = module.lessons?.[0]?.title ?? module.title;
+const mailSubject = encodeURIComponent(`Question about ${module.title} — Applied Statistics for Economics`);
+const mailBody = encodeURIComponent(`Hi,\n\nI’m studying the “${module.title}” module and its “${labTitle}” interactive lab. Could you explain how ${exampleConcept.toLowerCase()} connects to the graph, and what the result does—and does not—tell me?\n\nThanks!`);
+const mailHref = `mailto:statistics_learning@bot.cue.im?subject=${mailSubject}&body=${mailBody}`;
+const videoSrc = module.video ? (String(module.video).startsWith("/") ? module.video : String(module.video).includes(".") ? `/videos/${module.video}` : `/videos/${module.video}.mp4`) : "";
+---
+<Base title={module.title} description={module.excerpt} content={{ collection: "modules", id: contentId, slug: module.slug }}>
+  <section class="detail-hero">
+    <div class="detail-hero-inner">
+      <div class="breadcrumbs"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/#modules">Modules</a><span aria-hidden="true">/</span><span>{module.title}</span></div>
+      <div class="detail-kicker"><span aria-hidden="true">{iconByLab[module.lab] ?? "∑"}</span> {module.category}</div>
+      <h1>{module.title}</h1>
+      <p class="lead">{module.excerpt}</p>
+      <div class="detail-meta"><span>Level <strong>{module.level}</strong></span><span>Estimated time <strong>{module.minutes} min</strong></span><span><strong>{module.lessons?.length || 3}</strong> guided steps</span></div>
+    </div>
+    {module.visual && <img class="detail-visual" src={module.visual} alt="" loading="lazy" />}
+  </section>
+
+  <div class="detail-layout">
+    <article class="lesson-main">
+      <div class="lesson-stepper" aria-label="Lesson steps">
+        {module.lessons.map((lesson: any, index: number) => <button class="step-dot" type="button" data-step-index={index} aria-current={index === 0 ? "step" : "false"}>{String(index + 1).padStart(2,"0")} · {lesson.title}</button>)}
+      </div>
+      <div class="step-progress"><span data-step-progress></span></div>
+      <div class="small" data-current-step style="margin:8px 0 18px">Step 1 of {module.lessons.length}</div>
+      {module.lessons.map((lesson: any, index: number) => (
+        <section class="lesson-section" data-lesson-step data-step-title={lesson.title} hidden={index !== 0} aria-labelledby={`lesson-${index}`}>
+          <span class="eyebrow">Guided lesson {String(index + 1).padStart(2,"0")}</span>
+          <h2 id={`lesson-${index}`} style="margin-top:9px">{lesson.title}</h2>
+          {String(lesson.body ?? "").split(/\r?\n+/).filter(Boolean).map((paragraph: string) => <p>{paragraph}</p>)}
+          {lesson.code && <pre class="code-sample"><code>{lesson.code}</code></pre>}
+          {lesson.formula && <div class="formula-panel" role="math" aria-label={`Formula: ${lesson.formula}`}>{lesson.formula}</div>}
+          {lesson.practice && <details class="practice-reveal"><summary>Practice: {lesson.practice.question}</summary><p><strong>Hint:</strong> {lesson.practice.hint}</p><p><strong>Worked solution:</strong> {lesson.practice.solution}</p></details>}
+          <div class="takeaway"><span aria-hidden="true">↳</span><span>{lesson.takeaway}</span></div>
+        </section>
+      ))}
+      <div class="step-nav">
+        <button class="button-secondary" type="button" data-step-nav="prev" disabled>← Previous</button>
+        <button class="button-primary" type="button" data-step-nav="next">Next lesson →</button>
+      </div>
+
+      {module.diagram && <figure class="visual-explainer"><img src={module.diagram} alt={module.diagramAlt} loading="lazy" /><figcaption><strong>Visual guide.</strong> {module.diagramCaption}</figcaption></figure>}
+
+      {videoSrc && (
+        <div class="video-frame">
+          <video controls preload="metadata" playsinline poster="/images/video-reference.png" aria-label={`Conceptual illustration for ${module.title}, not a quantitative chart`}>
+            <source src={videoSrc} type="video/mp4" />
+            {module.captions && <track kind="captions" src={module.captions} srclang="en" label="English" default />}
+          </video>
+          <div class="video-caption">Conceptual illustration for learning · not a quantitative chart or forecast</div>
+        </div>
+      )}
+
+      <section class="lab-shell" data-lab data-chart-kind={module.lab}>
+        <div class="lab-head"><div><span class="eyebrow">Interactive lab</span><h2 style="margin-top:7px">{labTitle}</h2><p>{labDescription}</p></div><span class="lab-tag">MOVE THE MODEL</span></div>
+        <div class="lab-controls">
+          {controls.map((control: any) => (
+            <div class="range-control">
+              <label for={`${module.slug}-${control.key}`}><span>{control.label}</span><output data-range-output={control.key}>{control.value}{control.suffix}</output></label>
+              <input id={`${module.slug}-${control.key}`} type="range" min={control.min} max={control.max} step={control.step} value={control.value} data-control={control.key} data-suffix={control.suffix} aria-label={control.label} />
+            </div>
+          ))}
+        </div>
+        <div class="lab-visual"><svg data-chart viewBox="0 0 760 280" role="img" aria-label={`Interactive chart: ${labTitle}`} preserveAspectRatio="xMidYMid meet"></svg></div>
+        <div class="lab-results" data-results></div>
+        <div class="lab-explain" data-explanation aria-live="polite"><strong>Read the graph:</strong> move a control and compare the numerical summary with the visual pattern. This teaching model is simplified and may use simulated data.</div>
+      </section>
+
+      <section class="case-study"><span class="eyebrow">Economics in context</span><h3 style="margin-top:8px">A worked example</h3><p>{module.caseStudy}</p></section>
+
+      {module.quiz && (
+        <section class="quiz-card" data-quiz data-correct-index={module.quiz.answerIndex} data-explanation={module.quiz.explanation} aria-labelledby="quiz-heading">
+          <span class="eyebrow">Check your intuition</span><h3 id="quiz-heading" style="margin-top:7px">{module.quiz.question}</h3>
+          {module.quiz.options.map((option: string, index: number) => <button class="quiz-option" type="button" data-answer-index={index}>{option}</button>)}
+          <div class="quiz-feedback" data-quiz-feedback aria-live="polite"></div>
+        </section>
+      )}
+
+      <section class="ask-panel" aria-labelledby="ask-title">
+        <div class="ask-top"><div><span class="eyebrow" style="color:var(--mint)">Your learning companion</span><h2 id="ask-title" style="margin-top:8px">Ask AI about this lesson.</h2><p>Your current module, selected lesson and visible graph values are included as context, so you can ask about what you are studying—not statistics in the abstract.</p></div><span class="ask-badge">CONTEXT-AWARE</span></div>
+        <form class="ask-form" data-ask-form data-module-id={module.id?.replace(/^module-/, "") || module.slug}>
+          <label class="sr-only" for="ask-question">Your question</label>
+          <textarea id="ask-question" minlength="5" maxlength="1000" required placeholder={`For example: How does ${exampleConcept.toLowerCase()} change the interpretation of this graph?`}></textarea>
+          <div class="ask-form-footer"><small>Short answers · educational only · please do not include sensitive personal information</small><button type="submit">Ask this question</button></div>
+        </form>
+        <div class="ask-answer" data-ask-answer aria-live="polite"></div>
+      </section>
+
+      <section class="lesson-section" aria-labelledby="misconceptions-title">
+        <span class="eyebrow">Common traps</span><h2 id="misconceptions-title" style="margin-top:8px">What this result does not mean</h2>
+        <ul class="objectives-list">{module.misconceptions.map((item: string) => <li>{item}</li>)}</ul>
+      </section>
+      <section class="lesson-section" aria-labelledby="sources-title">
+        <span class="eyebrow">Read further</span><h2 id="sources-title" style="margin-top:8px">Sources behind this module</h2>
+        <div class="source-list">{module.sources.map((source: any) => <a href={source.url} target="_blank" rel="noopener noreferrer">{source.label} ↗</a>)}</div>
+      </section>
+    </article>
+
+    <aside class="lesson-sidebar">
+      <section class="sidebar-card"><span class="eyebrow">You will learn</span><ul class="objectives-list">{module.objectives.map((objective: string) => <li>{objective}</li>)}</ul><button class="button-primary mark-complete" type="button" data-mark-complete={module.id?.replace(/^module-/, "") || module.slug} aria-pressed="false">Mark module complete</button></section>
+      <section class="sidebar-card email-card"><h3>Prefer email?</h3><p>Open your mail app with the right recipient and a question starter already written for this module.</p><a class="button-secondary" href={mailHref}>Email a question ↗</a><p class="small" style="margin-top:12px">To: statistics_learning@bot.cue.im</p></section>
+      <section class="sidebar-card"><h3>Keep the claim calibrated</h3><p>Statistical significance is not the same as a large, useful or causal effect. Check the estimate, uncertainty, design and assumptions.</p><a class="small" href="https://www.amstat.org/asa/files/pdfs/p-valuestatement.pdf" target="_blank" rel="noopener noreferrer">ASA statement on p-values ↗</a></section>
+    </aside>
+  </div>
+  <script src="../../scripts/learning-lab.ts"></script>
+  <script src="../../scripts/applied-econometrics-labs.ts"></script>
+</Base>

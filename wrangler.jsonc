@@ -1,0 +1,28 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "statistical-finance-lab-preview",
+  "account_id": "22c45ad6ebfcc228c2793c92e8945c5d",
+  "main": "./src/worker.ts",
+  "compatibility_date": "2026-11-14",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "preview_urls": false,
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "statistics-learning-preview",
+      "database_id": "59b15c5d-3428-4512-a33c-83a3b109aeac"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "MEDIA",
+      "bucket_name": "statistical-finance-lab-media"
+    }
+  ],
+  "kv_namespaces": [
+    { "binding": "SESSION", "id": "801f2b3f641448d2bfd0b2afc6634995" }
+  ],
+  "ai": { "binding": "AI" },
+  "triggers": { "crons": ["0 * * * *"] }
+}

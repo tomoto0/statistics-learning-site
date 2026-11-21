@@ -1,0 +1,249 @@
+[
+  {
+    "id": "regularization-cross-validation",
+    "slug": "regularization-cross-validation",
+    "title": "Regularization, Cross-Validation & Prediction",
+    "category": "Modelling",
+    "level": "Beginner–Intermediate",
+    "minutes": 34,
+    "lab": "regularization",
+    "excerpt": "When an economic prediction model has many overlapping predictors, a perfect fit to the historical sample may be a poor guide to the next month. Learn why Ridge and LASSO deliberately shrink coefficients, how cross-validation chooses tuning strength, and how to guard against leakage. An interactive synthetic lab lets you vary the penalty, predictor correlation and sample size while watching training and validation error move. The module also separates predictive success from causal evidence: a model that predicts unemployment well does not, by itself, identify what a policy would change.",
+    "objectives": [
+      "Explain how coefficient penalties trade a little bias for lower prediction variance.",
+      "Distinguish Ridge shrinkage from LASSO's ability to set coefficients to zero.",
+      "Use validation or cross-validation to choose a penalty without leaking test information.",
+      "Explain why a predictive model is not automatically a causal model."
+    ],
+    "lessons": [
+      {
+        "title": "Why a perfect historical fit can fail next month",
+        "body": "A model is overfitting when it learns sample-specific noise as if it were a stable economic relationship. Training error measures fit to the observations used to estimate the model; prediction error concerns new observations. Add enough interactions or flexible features and ordinary least squares can fit the training sample extremely closely while becoming unstable outside it. The target of this module is prediction, not a causal coefficient.\n\nThink of forecasting local unemployment with dozens of highly related indicators. A small change in which districts enter the training data may produce large swings in estimated coefficients. First set aside observations that will not be used for fitting or tuning. They are the final test set; looking at them repeatedly turns them into another training resource.",
+        "formula": "Expected prediction error = bias² + variance + irreducible noise (conceptual decomposition).",
+        "takeaway": "A small in-sample error does not tell you how well a model will predict new data.",
+        "practice": {"question": "A model has training RMSE 2 and test RMSE 14. What is the immediate warning?", "hint": "Compare performance on seen and unseen observations.", "solution": "The large gap is consistent with overfitting or a changed test distribution. It is not proof of which cause applies, but the training score alone is not a credible performance claim."}
+      },
+      {
+        "title": "What Ridge and LASSO penalties change",
+        "body": "Regularization adds a cost for large coefficients to the usual residual-error objective. Ridge uses the sum of squared coefficients, so it continuously shrinks estimates and generally keeps every predictor. LASSO uses the sum of absolute coefficients; for some penalty strengths it sets some coefficients exactly to zero. Both can stabilize prediction when predictors are numerous or strongly correlated, but their coefficient patterns answer different questions.\n\nBefore applying either penalty, scale continuous predictors using information from the training data only. Otherwise the penalty treats a one-unit change in income and a one-unit change in a tiny-rate variable as if their scales were comparable. The tuning parameter λ sets the strength of shrinkage: larger λ means a stronger penalty. The intercept is usually not penalized.",
+        "formula": "Ridge: minimise RSS + λΣβⱼ². LASSO: minimise RSS + λΣ|βⱼ|; the unpenalized intercept is omitted from the sums.",
+        "takeaway": "Ridge shrinks all slopes; LASSO can also remove predictors, but neither penalty makes a causal design.",
+        "practice": {"question": "With many almost-duplicate labour-market indicators, which penalty is more likely to keep a group of small nonzero coefficients?", "hint": "Compare continuous shrinkage with exact zeros.", "solution": "Ridge tends to retain and shrink correlated predictors together. LASSO may select a smaller set, but which member of a correlated group survives can be unstable."}
+      },
+      {
+        "title": "Choose the penalty with cross-validation",
+        "body": "Cross-validation repeatedly hides part of the training data, fits on the remainder, and scores predictions on the hidden fold. Average the scores across folds for each candidate λ, then choose a value using the stated rule—for example, the minimum average error or a simpler model whose error is close to that minimum. This uses training data efficiently while retaining an untouched test set for one final performance check.\n\nEvery learned preprocessing step belongs inside the fold: scaling, imputation, feature screening and dimensionality reduction must be recalculated from that fold's training portion. If you use the full dataset to choose predictors before splitting, information from the held-out outcomes has leaked into model selection. For a time series, use forward or rolling-origin validation rather than randomly mixing future observations into past training folds.",
+        "formula": "CV(λ) = average held-out loss over folds; select λ using only the training data.",
+        "takeaway": "The validation design must imitate the way the model will face genuinely new observations.",
+        "practice": {"question": "Why is random ten-fold validation usually a poor choice for forecasting next quarter's inflation?", "hint": "Ask whether future quarters can enter a training fold.", "solution": "Random folds can let later observations help predict earlier held-out periods. A time-ordered split better preserves the forecasting information set."}
+      },
+      {
+        "title": "Read validation curves without chasing noise",
+        "body": "Plot validation error against log(λ), not only the single selected score. At very weak penalties a flexible model may have low training error but high validation error; stronger shrinkage can reduce instability, while excessive shrinkage eventually adds too much bias. A broad flat minimum is often more informative than a tiny numerical difference between neighbouring tuning values. The choice should also reflect the cost of a complex or unstable model.\n\nReport the outcome, prediction horizon, loss function, split rule, tuning procedure and uncertainty or variation in performance across folds. Compare with a simple baseline such as last month's value or a low-dimensional regression. A sophisticated model is useful only if it beats a reasonable benchmark under a fair evaluation, not because its training fit looks impressive.",
+        "takeaway": "Show the tuning curve and a benchmark so readers can see how fragile the chosen penalty is.",
+        "practice": {"question": "Cross-validation errors are 10.01, 10.00 and 10.02 for three neighbouring penalties. What is a sensible reading?", "hint": "The score differences are tiny relative to the level of error.", "solution": "The data provide little evidence that one of these penalties is meaningfully better. Prefer a stable or simpler choice and report that the minimum is flat."}
+      },
+      {
+        "title": "Keep prediction separate from economic explanation",
+        "body": "A predictive model is judged by how well it forecasts outcomes under a defined evaluation design. A causal analysis asks what would happen under an intervention and needs a research design and identifying assumptions. LASSO may be useful for building forecasts or screening a large set of candidate controls, but a selected nonzero coefficient is not automatically an unbiased treatment effect. Selection also changes the uncertainty calculations that would be appropriate for causal claims.\n\nFor example, a set of indicators might predict which towns experience employment declines without revealing the effect of a wage subsidy. State the purpose first, keep all feature selection within the training process, and use a causal design—such as a credible experiment, instrument or quasi-experiment—when the question is about policy effects. Revisit the site's causal and IV modules for those design questions.",
+        "takeaway": "Predictive fit answers a forecasting question; causal interpretation requires a separate identification argument.",
+        "practice": {"question": "A LASSO model retains a job-training indicator when predicting earnings. Does that establish the programme's causal effect?", "hint": "Ask what happened to otherwise comparable people without the programme.", "solution": "No. Retention indicates predictive contribution conditional on the fitted model, not a valid counterfactual comparison. Assignment and confounding still need a causal design."}
+      }
+    ],
+    "caseStudy": "An employment agency wants next-quarter regional unemployment forecasts from a large set of correlated indicators. The lesson uses a synthetic example to compare an ordinary least-squares benchmark with shrinkage, selects tuning strength inside training data, and keeps a future test period untouched. The result is discussed as a forecast, not as an estimate of any programme's effect.",
+    "misconceptions": [
+      "A lower training error does not necessarily mean better out-of-sample predictions.",
+      "LASSO selection is not proof that the chosen variable is economically causal or uniquely important.",
+      "Cross-validation does not remove leakage if preprocessing or feature selection used held-out information.",
+      "Random folds do not respect temporal order in forecasting problems."
+    ],
+    "quiz": {"question": "Which statement about a LASSO model is most defensible?", "options": ["A nonzero coefficient proves a causal effect.", "Cross-validation can compare predictive performance when every data-dependent step stays inside each training fold.", "A zero coefficient proves the variable has no economic relationship."], "answerIndex": 1, "explanation": "LASSO and cross-validation are tools for prediction and model selection. Their results do not, on their own, establish causal effects or prove that an excluded variable has no relationship."},
+    "sources": [
+      {"label": "James, Witten, Hastie, Tibshirani & Taylor — An Introduction to Statistical Learning (official free book site; linear-model regularization chapter)", "url": "https://www.statlearning.com/"},
+      {"label": "Cunningham — Ridge, LASSO, Elastic Net and Cross-Validation (course notes)", "url": "https://www.scunning.com/files/gov51/sections/section10-regularization.pdf"}
+    ]
+  },
+  {
+    "id": "meta-analysis-evidence-synthesis",
+    "slug": "meta-analysis-evidence-synthesis",
+    "title": "Meta-Analysis & Evidence Synthesis for Economics",
+    "category": "Inference & Research",
+    "level": "Beginner–Intermediate",
+    "minutes": 36,
+    "lab": "metaanalysis",
+    "excerpt": "A policy can be evaluated in many places and periods, producing a set of estimates rather than one decisive study. Learn how meta-analysis combines comparable effect estimates using their precision, why between-study differences call for a random-effects perspective, and how meta-regression relates effects to study features. The interactive forest-plot lab generates a clearly labelled synthetic evidence set and compares fixed- and random-effects summaries. The lessons also cover publication bias, multiple estimates from the same study, transparent inclusion rules and why counting significant results is not a substitute for synthesis.",
+    "objectives": [
+      "Prepare a study-level dataset of comparable effect estimates and standard errors.",
+      "Explain inverse-variance weighting and the difference between fixed- and random-effects summaries.",
+      "Describe heterogeneity, meta-regression and dependence among estimates.",
+      "Recognize publication bias and avoid vote-counting conclusions."
+    ],
+    "lessons": [
+      {
+        "title": "Start with a question and a study-selection rule",
+        "body": "Meta-analysis combines estimates from multiple studies that address a sufficiently similar question. Before collecting numbers, define the population, intervention or exposure, outcome, comparison, follow-up window and eligible study designs. Record how studies were searched for and why each was included or excluded. This prevents a convenient collection of positive results from silently becoming the evidence base.\n\nThe working dataset usually has one row per independent estimate, with an effect estimate, its standard error, study identifier and useful design or population features. Extract estimates from published and unpublished sources where possible. A meta-analysis cannot make unlike outcomes comparable merely by placing them in the same spreadsheet; decide which effects can be meaningfully put on a common scale and explain that choice.",
+        "takeaway": "A transparent review question and inclusion rule come before weighting or pooling.",
+        "practice": {"question": "Why might a review of job-training programmes record follow-up time as well as an earnings effect?", "hint": "The effect may differ between the first year and later years.", "solution": "Time horizon changes the estimand and can explain real differences between estimates. Combining short- and long-run effects without a plan can obscure what the pooled quantity means."}
+      },
+      {
+        "title": "Weight estimates by precision, not by significance",
+        "body": "An estimate with a smaller standard error typically contains more sampling information than a very noisy estimate. In a simple fixed-effect model, inverse-variance weights are wₖ = 1/SEₖ², and the pooled estimate is the weighted mean of study estimates. This is not a vote: a small study with a large point estimate should not automatically count as much as a precise study. Nor should studies be weighted by whether their p-value falls below a threshold.\n\nThe fixed-effect calculation assumes one shared underlying effect and attributes differences among estimates to sampling error. That can be a useful benchmark, but it is often a strong description for policies implemented in different labour markets, institutions or years. Check the study scales and standard errors before interpreting any pooled number.",
+        "formula": "Fixed-effect pooled estimate = Σ(wₖ θ̂ₖ) / Σwₖ, with wₖ = 1 / SEₖ².",
+        "takeaway": "Precision weighting uses uncertainty; it is not a count of positive or statistically significant papers.",
+        "practice": {"question": "Study A estimates +0.2 with SE 0.05; Study B estimates +0.8 with SE 0.40. Which carries more fixed-effect weight?", "hint": "Compare the inverse squared standard errors.", "solution": "Study A has far greater inverse-variance weight because its standard error is much smaller. This arithmetic does not decide whether a fixed-effect assumption is credible."}
+      },
+      {
+        "title": "Allow effects to vary across settings",
+        "body": "A random-effects model allows the underlying effect to differ across studies. A common teaching formulation adds an estimated between-study variance τ² to each study's sampling variance, giving weight 1/(SEₖ² + τ²). When τ² is larger, weights become more balanced, so small studies can contribute more than under a fixed-effect model. This is not a universal correction for poor evidence; it changes the model and the target summary.\n\nThe pooled mean describes an average across the included distribution of settings, not necessarily the effect in a particular town or future policy. Report a heterogeneity measure and inspect the individual estimates and intervals. A wide range can mean that the average alone is not the most useful policy conclusion.",
+        "formula": "Random-effects weight: wₖ = 1 / (SEₖ² + τ²), where τ² is between-study variance.",
+        "takeaway": "A random-effects average summarizes a distribution of settings; it does not make those settings identical.",
+        "practice": {"question": "What happens to the relative weights of small and large studies when τ² grows?", "hint": "A common variance component is added to every study's sampling variance.", "solution": "The precision differences matter less, so weights become more balanced than in the fixed-effect formula. The uncertainty about τ² and the appropriateness of the model still matter."}
+      },
+      {
+        "title": "Explain heterogeneity without overfitting the review",
+        "body": "Meta-regression relates study-level effects to recorded study features such as programme length, baseline employment or outcome timing. It can help organize why studies differ, but it uses the number of studies—not the number of participants in the original trials—as its effective information base. With few studies and many moderators, apparently precise stories can be unstable. Study-level associations also do not establish that an individual participant would respond the same way.\n\nSome papers report several outcomes or specifications from the same sample. Those estimates share information and are dependent. Treating them as independent rows can overstate precision. Choose a primary estimate using a rule, combine them appropriately, or use a model that represents their dependence. Describe the choices so another researcher can reproduce the synthesis.",
+        "takeaway": "Study features can explain variation, but the review still needs enough independent studies and a defensible dependence model.",
+        "practice": {"question": "A review has 12 independent studies and tests 15 meta-regression moderators. What is the main concern?", "hint": "The moderator count is large relative to the number of studies.", "solution": "The study-level model is likely to be unstable and vulnerable to overfitting. Treat subgroup patterns as exploratory or reduce the moderator set using a prespecified rationale."}
+      },
+      {
+        "title": "Check what the published evidence leaves out",
+        "body": "If studies with statistically significant or preferred-direction results are more likely to appear in journals, the observed set can be a selected sample of all analyses performed. Funnel plots and regression-based checks can flag patterns, but they cannot prove publication bias or repair missing evidence by themselves. Small-study effects may also arise because smaller studies differ in design, populations or implementation.\n\nDo not count how many papers are “significant” and call that an average effect: significance depends on sample size and precision. Report the search protocol, small-study diagnostics and sensitivity analyses alongside the pooled estimate. If the evidence remains heterogeneous or selectively observed, say so. A careful synthesis communicates what the available studies can and cannot support.",
+        "takeaway": "A pooled estimate is only as credible as the search, comparability and assumptions behind the studies it includes.",
+        "practice": {"question": "A funnel plot is asymmetric. Does that prove that journals suppressed null results?", "hint": "Think of other reasons that study size and estimated effects may be related.", "solution": "No. Asymmetry can be consistent with publication or selection bias but can also reflect genuine differences, design quality or chance. It is a warning to investigate, not a verdict."}
+      }
+    ],
+    "caseStudy": "A review team compares evaluations of job-training schemes from regions with different labour markets. The worked example uses synthetic effects and standard errors to show how a precise estimate, a heterogeneous distribution and study-level moderators affect the summary. The lesson emphasizes that the target is an average across the review's included settings, not a guaranteed effect for the next programme.",
+    "misconceptions": [
+      "A forest plot is a display, not proof that the included studies estimate the same quantity.",
+      "Random-effects weighting does not eliminate publication bias or dependence among estimates.",
+      "The number of original-study participants is not the sample size for a meta-regression across studies.",
+      "Funnel-plot asymmetry is a diagnostic clue, not a definitive test of publication bias."
+    ],
+    "quiz": {"question": "Which description best matches a random-effects meta-analysis?", "options": ["Every study has exactly the same true effect and all variation is sampling noise.", "Study effects may vary; the pooled result summarizes an average across the included settings under the model.", "Each study is counted once if it reports a significant result."], "answerIndex": 1, "explanation": "Random-effects models include between-study variation and summarize an average across settings. They do not resolve bias or make heterogeneous studies directly interchangeable."},
+    "sources": [
+      {"label": "Haghnejad & Farahati (2024) — An Overview of Meta-Analytic Methods for Economic Research (open preprint)", "url": "https://arxiv.org/html/2412.10608v1"},
+      {"label": "Chabefer — Statistical Tools for Causal Inference, Chapter 13: Meta-analysis and Publication Bias", "url": "https://chabefer.github.io/STCI/meta.html"}
+    ]
+  },
+  {
+    "id": "causal-mediation-mechanisms",
+    "slug": "causal-mediation-mechanisms",
+    "title": "Causal Mediation & Mechanism Analysis",
+    "category": "Applied Econometrics",
+    "level": "Intermediate",
+    "minutes": 35,
+    "lab": "mediation",
+    "excerpt": "A programme may change an outcome because it changes an intermediate behaviour, but observing that behaviour does not automatically reveal a causal mechanism. Learn to distinguish total, direct and indirect effects, draw the treatment–mediator–outcome path, and state the assumptions needed to interpret mediation estimates. An interactive linear teaching model lets you vary the pathway and a hypothetical unmeasured mediator–outcome bias. The module explains why randomizing the programme does not randomize the mediator, why the familiar product-of-coefficients is limited, and how sensitivity analysis makes hidden-confounding assumptions visible.",
+    "objectives": [
+      "Represent treatment, mediator and outcome relationships in a causal diagram.",
+      "Explain direct and indirect causal-effect questions in counterfactual terms.",
+      "State why sequential ignorability is stronger than randomizing treatment alone.",
+      "Use sensitivity analysis and careful reporting when mediator–outcome confounding is plausible."
+    ],
+    "lessons": [
+      {
+        "title": "Ask what pathway a mechanism claim proposes",
+        "body": "A mediation question asks whether some of a treatment's effect operates through an intermediate variable. For example, job-search coaching may increase interview practice, which may then affect employment. Draw treatment T, mediator M and outcome Y, with arrows T→M and M→Y; also include a possible direct T→Y path. The diagram makes the proposed pathway explicit, but arrows are hypotheses about causal structure, not findings produced by the drawing.\n\nFirst estimate or define the total effect of the treatment on Y. Then ask a separate question about how that effect is transmitted. A variable measured after treatment can be part of the mechanism, but conditioning on it in an ordinary regression may change the estimand or create bias. Measurement timing and the causal role of M must be justified before interpreting any decomposition.",
+        "takeaway": "A mediator is an intermediate variable in a proposed causal pathway, not simply a variable correlated with treatment and outcome.",
+        "practice": {"question": "A coaching offer is randomized, and participants who attend more sessions earn more. Is attendance automatically a mediator with a causal effect?", "hint": "Motivation can affect both attendance and later earnings.", "solution": "No. Attendance is post-treatment and can be confounded by motivation, time or need. Randomizing the offer does not randomize attendance."}
+      },
+      {
+        "title": "Separate total, direct and indirect effects",
+        "body": "Counterfactual notation helps state the comparison. Let M(t) be the mediator value under treatment status t, and let Y(t,m) be the outcome if treatment were t and the mediator were set to m. A natural indirect effect asks how Y would change when the mediator moves from its untreated to treated value while treatment is held fixed; a natural direct effect changes treatment while fixing the mediator at a specified counterfactual value. These contrasts require careful cross-world assumptions because not every person can be observed in both states.\n\nIn a simple additive linear model with no treatment–mediator interaction, a familiar decomposition is total effect = direct effect + indirect effect, with the indirect path equal to a×b. In nonlinear models, with interactions, or under other estimands, that equality need not hold. Name the estimand and model rather than presenting a generic “percent mediated” as universal.",
+        "formula": "In the simple additive linear model only: indirect path = a × b and total effect = direct + indirect.",
+        "takeaway": "Direct and indirect effects are counterfactual contrasts; the coefficient-product shortcut depends on model and identification assumptions.",
+        "practice": {"question": "If a = 0.5 mediator units and b = 2 outcome units per mediator unit, what is the simple-model indirect path?", "hint": "Multiply the two path coefficients, then retain the units.", "solution": "The illustrative product is 1 outcome unit per treatment change. It is a causal indirect effect only if the model and mediation identification assumptions are credible."}
+      },
+      {
+        "title": "See why treatment randomization is not enough",
+        "body": "Randomly assigning T can remove confounding of treatment assignment, but M is usually not randomized. An unmeasured variable such as motivation U may influence both M and Y, creating a back-door path from mediator to outcome. Sequential ignorability requires adequate control of treatment–outcome and mediator–outcome confounding, alongside consistency, positivity and other design conditions. It also rules out certain treatment-induced confounders of the mediator–outcome relation for common natural-effect definitions.\n\nThese assumptions are demanding and cannot generally be verified by checking that a regression fits well. A randomized treatment experiment can therefore identify a total treatment effect while leaving the mechanism uncertain. A mediation analysis should state which confounders were measured before treatment, which were not, and why the remaining assumptions are plausible in the particular economic setting.",
+        "takeaway": "Random assignment of treatment does not randomize a post-treatment mediator or guarantee a causal mediation estimate.",
+        "practice": {"question": "Which hidden factor could bias the estimated effect of interview practice on employment even in a randomized coaching trial?", "hint": "Look for a cause of both practice intensity and the later outcome.", "solution": "Motivation, time availability or baseline job prospects could affect both practice and employment. The randomized offer does not remove that mediator–outcome confounding."}
+      },
+      {
+        "title": "Match estimation to the outcome and design",
+        "body": "The product of two regression coefficients can be a convenient estimator in a correctly specified linear model with the needed assumptions. It is not a universal mediation algorithm. Binary outcomes, nonlinear links, treatment–mediator interactions, measurement error and selection into mediator observation can all change the estimand or invalidate a simple coefficient product. Counterfactual simulation or other estimators can accommodate richer models, but they still rely on identification assumptions.\n\nPlan measurement order carefully: observe baseline confounders before treatment, measure the mediator at a defensible point after treatment, and measure the outcome later. Check overlap in mediator values and treatment groups. Report how the model represents interactions and uncertainty, and distinguish the analysis plan from exploratory alternatives tried after seeing the results.",
+        "takeaway": "A more flexible estimator cannot repair a missing identification argument or poorly timed measurements.",
+        "practice": {"question": "Why can a logistic-regression coefficient product fail to equal a natural indirect effect in outcome units?", "hint": "A log-odds coefficient is not a risk difference, and the link is nonlinear.", "solution": "The scale is nonlinear, so the product is not generally an additive effect decomposition. Define the counterfactual estimand and calculate it on a stated outcome scale."}
+      },
+      {
+        "title": "Use sensitivity analysis and report the limits",
+        "body": "Because mediator–outcome ignorability is rarely guaranteed, vary a plausible hidden-confounding strength and ask how the estimated indirect effect changes. A sensitivity analysis does not discover the true confounder; it shows which assumptions are needed for the conclusion to survive. The interactive model uses a hypothetical bias parameter so the learner can see the indirect path move, while clearly labelling the result as a sensitivity scenario rather than data.\n\nReport the total effect, the named direct and indirect estimands, the identification assumptions, measurement timing, estimation method and sensitivity range. Avoid claiming that a mediator is “the mechanism” solely because its coefficient is statistically significant. A credible result may be that the total effect is supported while the evidence for a particular pathway remains inconclusive.",
+        "takeaway": "A mechanism claim should survive a transparent discussion of unmeasured mediator–outcome confounding.",
+        "practice": {"question": "A modest hidden-confounding value changes the indirect-effect estimate from positive to near zero. What should the report say?", "hint": "Separate evidence for the total effect from evidence for the pathway.", "solution": "The pathway result is sensitive to the unmeasured-confounding assumption and should not be described as robust. Report the sensitivity threshold and keep the total-effect conclusion separate."}
+      }
+    ],
+    "caseStudy": "A synthetic evaluation of job-search coaching asks whether interview practice could mediate a later employment effect. The diagram includes a plausible motivation variable that affects both practice and employment. The lab decomposes effects only under a simple additive linear teaching model, then varies an explicit hypothetical bias term to show why the mediator–outcome assumption matters.",
+    "misconceptions": [
+      "A randomized treatment does not automatically make the mediator–outcome relationship unconfounded.",
+      "A significant mediator coefficient is not proof of a causal mechanism.",
+      "The product-of-coefficients decomposition is not universal for nonlinear or interactive models.",
+      "Sensitivity analysis describes robustness to assumptions; it does not identify the hidden confounder."
+    ],
+    "quiz": {"question": "In a randomized programme trial, what additional issue most directly threatens a causal indirect-effect estimate through a post-treatment mediator?", "options": ["Random assignment means mediator values are random too.", "An unmeasured cause of both the mediator and outcome can remain.", "The total treatment effect must equal zero."], "answerIndex": 1, "explanation": "Treatment randomization helps identify the treatment effect, but it does not randomize the mediator. Mediator–outcome confounding and the other mediation assumptions still matter."},
+    "sources": [
+      {"label": "Imai, Keele & Yamamoto (2010) — Identification, Inference and Sensitivity Analysis for Causal Mediation Effects", "url": "https://arxiv.org/html/1011.1079v1"},
+      {"label": "Imai, Keele & Tingley — A General Approach to Causal Mediation Analysis", "url": "https://imai.fas.harvard.edu/research/files/BaronKenny.pdf"}
+    ]
+  },
+  {
+    "id": "partial-identification-bounds",
+    "slug": "partial-identification-bounds",
+    "title": "Partial Identification, Bounds & Sensitivity",
+    "category": "Inference & Research",
+    "level": "Intermediate",
+    "minutes": 33,
+    "lab": "partialid",
+    "excerpt": "When the data and credible assumptions cannot support one exact causal number, they may still rule out large parts of the answer space. Learn the difference between point identification and an identified set, derive worst-case bounds for binary outcomes with incomplete follow-up, and see how additional assumptions narrow a set at a cost. An interactive grant-evaluation lab recomputes lower and upper treatment-effect bounds as response rates and observed outcomes change. It distinguishes identification uncertainty from sampling uncertainty and warns against treating a bound midpoint as if it were a point estimate.",
+    "objectives": [
+      "Distinguish point identification from set or partial identification.",
+      "Derive worst-case bounds for a binary outcome when some assigned units are missing.",
+      "Explain how stronger assumptions can tighten bounds and why they must be justified.",
+      "Separate an identified set from a confidence interval for its endpoints."
+    ],
+    "lessons": [
+      {
+        "title": "Replace an implausibly exact answer with a set",
+        "body": "Point identification means that the data and stated assumptions imply one value for a parameter. Partial identification means they imply a set of possible values. A simple analogy is x + y = 10: if y is known exactly, x is fixed; if y is only known to lie between 4 and 7, x lies between 3 and 6. In applied work, the interval reflects what the evidence and assumptions can support—not a failure to calculate precisely.\n\nThis approach is useful when point identification would require a strong claim that seems implausible, such as assuming an unmeasured confounder has exactly zero effect. Start with assumptions you can defend, derive the range of compatible answers, and then show how additional assumptions change that range. A wider but credible set can be more honest than a narrow result built on an unconvincing restriction.",
+        "takeaway": "Partial identification states what remains possible under weaker assumptions instead of pretending the data select one exact answer.",
+        "practice": {"question": "You know x + y = 10 and only know 4 ≤ y ≤ 7. What can you say about x?", "hint": "Subtract the two ends of y's interval from 10.", "solution": "3 ≤ x ≤ 6. The range is the identified set; selecting its midpoint would require an extra rule or assumption."}
+      },
+      {
+        "title": "Derive worst-case bounds for missing binary outcomes",
+        "body": "Suppose treatment was randomized, but some participants have no recorded binary outcome at follow-up. Let r be the fraction observed and p the positive-outcome share among those observed. Because an unobserved binary outcome is between zero and one, the full-group outcome mean lies between r×p and r×p + (1−r). Calculate those endpoints separately for treatment and control. Subtract the largest compatible control mean from the smallest treatment mean for the lower effect bound, and vice versa for the upper bound.\n\nFor example, if 88% of the offered-training group responds and 74% of responders pass an assessment, its mean lies between 0.88×0.74 = 0.651 and 0.771. If 78% of controls respond and 59% pass, their mean lies between 0.460 and 0.680. The effect is therefore bounded approximately by −0.029 and +0.311. The sign is not determined without additional assumptions.",
+        "formula": "For a binary outcome: μ ∈ [r p, r p + (1−r)]; ATE ∈ [μT,L−μC,U, μT,U−μC,L].",
+        "takeaway": "With unknown binary outcomes, response rates and observed shares alone imply a range, not a complete-case point estimate.",
+        "practice": {"question": "If a treated group has response rate 0.80 and observed success share 0.50, what are worst-case bounds for its full-group mean?", "hint": "Use r×p for the lower endpoint and add all missing cases for the upper.", "solution": "The lower endpoint is 0.80×0.50 = 0.40; the upper is 0.40 + 0.20 = 0.60. Missing cases could all fail or all succeed under the unrestricted binary-outcome bounds."}
+      },
+      {
+        "title": "Tighten bounds only with assumptions you can defend",
+        "body": "Worst-case bounds can be wide. Extra information or restrictions may narrow them: known outcome limits, a defensible monotonicity condition, external validation data, or a transparent restriction on how outcomes differ among missing participants. Each addition has a price: it removes some data-compatible worlds from consideration. Show the original bound and explain which assumption moves each endpoint.\n\nA restriction such as “missing participants would have the same success rate as responders” is not a free statistical improvement; it is an assumption about selection. Compare it with plausible alternatives and report sensitivity. Do not choose the narrowest interval simply because it is more decisive. The value of the approach is to make the link between assumptions and conclusions visible.",
+        "takeaway": "A tighter identified set is informative only when the assumption that tightens it is credible and explicit.",
+        "practice": {"question": "A researcher narrows a bound by assuming missing trainees have exactly the same success rate as respondents. What should be added to the report?", "hint": "Ask whether that equality follows from the data or is a restriction.", "solution": "Label the equality as an assumption, justify it using the study context, and show sensitivity to plausible departures. It is not established merely by having observed data."}
+      },
+      {
+        "title": "Keep identified sets and confidence intervals separate",
+        "body": "An identified set describes the parameter values compatible with the population-level data and assumptions. A confidence interval describes sampling uncertainty in an estimator or endpoint. With a finite sample, the estimated lower and upper bounds are themselves uncertain, so valid inference must account for that uncertainty rather than treating the sample endpoints as known constants.\n\nA useful report may show the estimated identified set and a confidence region for it, with a clear explanation of the construction. If a confidence interval for a single point estimate overlaps a bound, that is not automatically a valid procedure for partially identified parameters. The interactive lab displays population-style teaching bounds from chosen rates; it does not calculate confidence intervals or represent a real dataset.",
+        "takeaway": "The width of an identified set and the sampling uncertainty around estimated bounds are different sources of uncertainty.",
+        "practice": {"question": "Does a worst-case bound computed from a sample automatically include sampling error?", "hint": "Ask whether the response rates were known for the entire population or estimated from a sample.", "solution": "No. Sample estimates of the bound endpoints have sampling uncertainty. Inference for the set or its endpoints needs an appropriate confidence procedure."}
+      },
+      {
+        "title": "Report what the range can and cannot rule out",
+        "body": "Interpret the full range, not only its centre. If all compatible effects are positive, the sign is identified under the assumptions, though the magnitude may remain uncertain. If the set crosses zero, both benefit and harm remain compatible; that is not the same as a conventional test failing to reject a point null. If the interval is broad, it may still rule out effects that would be implausibly large.\n\nReport the target population, outcome scale, missingness or selection process, assumptions, endpoint calculations and uncertainty procedure. Do not label the midpoint as “the estimate” unless a separate model or decision rule justifies it. A transparent range can guide data collection: it shows which missing outcomes or design information would be most valuable to measure next.",
+        "takeaway": "A bound is a map of compatible effects; its sign and width are more meaningful than an unjustified midpoint.",
+        "practice": {"question": "An identified set is [−0.03, 0.31]. What is the most accurate plain-language conclusion?", "hint": "Check whether the interval contains zero.", "solution": "Under the stated assumptions, the effect could be slightly negative or substantially positive; its sign is not determined. The midpoint is not automatically the best estimate."}
+      }
+    ],
+    "caseStudy": "A randomized training offer is evaluated with incomplete follow-up on a binary skills-assessment outcome. Synthetic response rates and observed pass shares produce worst-case bounds, which include both a small negative and a positive effect. The exercise shows exactly how a proposed missing-outcome restriction could narrow the set and why that assumption must be discussed separately.",
+    "misconceptions": [
+      "A partially identified interval is not automatically a confidence interval for one point estimate.",
+      "The midpoint of a bound is not automatically an estimate justified by the data.",
+      "Assumptions that narrow bounds should be stated and defended, not hidden as a technical convenience.",
+      "Bounds that include zero do not prove there is no effect; they show the sign is not determined under the stated information."
+    ],
+    "quiz": {"question": "What does an identified set [−0.1, 0.3] mean under the stated assumptions?", "options": ["The true effect is exactly 0.1.", "Every value in the range is compatible with the data and assumptions; the sign is not determined.", "There is a 90% probability the effect is positive."], "answerIndex": 1, "explanation": "An identified set lists compatible parameter values. It is not a probability distribution or a conventional confidence interval, and the range crossing zero leaves the sign unresolved."},
+    "sources": [
+      {"label": "Tamer (2010) — Partial Identification in Econometrics, Annual Review of Economics", "url": "https://www.annualreviews.org/content/journals/10.1146/annurev.economics.050708.143401"},
+      {"label": "Huntington-Klein — The Effect, Chapter 21: Partial Identification", "url": "https://theeffectbook.net/ch-PartialIdentification.html"}
+    ]
+  }
+]
